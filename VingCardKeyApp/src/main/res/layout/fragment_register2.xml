@@ -1,0 +1,113 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <RelativeLayout
+            android:id="@+id/reg_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/default_margin"
+            android:background="@drawable/card_background"
+            android:padding="@dimen/default_margin" >
+
+            <TextView
+                android:id="@+id/reg_header"
+                style="@style/TextLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/reg_instructions" />
+
+            <TextView
+                android:id="@+id/reg_country_label"
+                style="@style/TextNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/reg_header"
+                android:layout_marginTop="@dimen/default_margin"
+                android:text="@string/reg_country_hint" />
+
+            <LinearLayout
+                android:id="@+id/reg_country_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/reg_country_label"
+                android:layout_marginTop="@dimen/small_margin" >
+
+                <ImageView
+                    android:id="@+id/reg_country_img"
+                    android:layout_width="@dimen/img_icon_size"
+                    android:layout_height="@dimen/img_icon_size"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="fitEnd"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/reg_country_selected"
+                    style="@style/SpinnerStyleTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/small_margin"
+                    android:hint="@string/reg_country_hint" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/reg_number_input"
+                style="@style/TextNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/reg_country_section"
+                android:layout_marginTop="@dimen/default_margin"
+                android:hint="@string/reg_phone_hint"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/reg_error"
+                style="@style/TextError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/reg_number_input"
+                android:layout_marginTop="@dimen/small_margin"
+                android:visibility="gone" />
+            <TextView
+                    android:id="@+id/reg_continue"
+                    style="@style/TextNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/reg_error"
+                    android:layout_marginTop="@dimen/small_margin" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/reg_button"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_below="@id/reg_input"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/button_margin"
+            android:layout_marginRight="@dimen/button_margin"
+            android:background="@drawable/btn_default"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/reg_button_text"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+        
+        <TextView 
+		    android:id="@+id/reg_version"
+		    style="@style/TextNormal"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@id/reg_button"
+		    android:layout_centerHorizontal="true"
+	     />
+    </RelativeLayout>
+
+</ScrollView>

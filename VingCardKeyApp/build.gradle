@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.5.+'
+    }
+}
+apply plugin: 'android'
+
+repositories {
+    mavenCentral()
+}
+
+android {
+    compileSdkVersion 18
+    buildToolsVersion "18.1.0"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 18
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("AndroidCertificate.p12")
+            storePassword "computas"
+            keyAlias "cxkey"
+            keyPassword "computas"
+        }
+    }
+    buildTypes {
+        debug {
+            versionNameSuffix "-DEBUG"
+            packageNameSuffix ".debug"
+        }
+        release {
+            debuggable false
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+dependencies {
+    compile 'com.google.android.gms:play-services:3.2.+'
+    compile 'com.android.support:appcompat-v7:18.0.0'
+    compile 'org.springframework.android:spring-android-core:1.0.1.RELEASE'
+    compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
+    compile 'joda-time:joda-time:2.1'
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.googlecode.libphonenumber:libphonenumber:5.8'
+    compile 'commons-codec:commons-codec:1.8'
+    compile 'com.squareup.picasso:picasso:2.1.0'
+}

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="together">
+     
+     <objectAnimator
+        android:duration="2000"
+        android:propertyName="x"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:valueTo="165"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+        android:valueType="floatType" /> 
+    
+    <objectAnimator
+        android:duration="2000"
+        android:propertyName="y"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:valueTo="-90"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+        android:valueType="floatType" />
+    
+    <objectAnimator
+        android:duration="2000"
+        android:propertyName="rotation"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:valueTo="20"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+        android:valueType="floatType" /> 
+
+    <!-- 
+    <objectAnimator
+        android:duration="3000"
+        android:propertyName="x"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:valueTo="200"
+        android:valueType="floatType" />
+    <objectAnimator
+        android:duration="3000"
+        android:propertyName="rotation"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:valueTo="90"
+        android:valueType="floatType" /> -->
+
+</set>

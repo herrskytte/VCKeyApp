@@ -1,0 +1,104 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme for API 14+. This theme completely replaces
+        AppBaseTheme from BOTH res/values/styles.xml and
+        res/values-v11/styles.xml on API 14+ devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!-- API 14 theme customizations can go here. -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <!-- <item name="android:windowBackground">@drawable/background_stretch2</item> -->
+        <item name="android:windowBackground">@color/vce_dark_grey</item>
+    </style>
+    
+    <!-- TextViews -->
+    <style name="TextBase">
+    	<item name="android:textColor">@color/text_black</item>
+    </style>
+    
+    <style name="TextBaseBold">
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextHeader" parent="TextBase">
+        <item name="android:textSize">@dimen/text_size_xlarge</item>
+    </style>
+
+    <style name="TextLarge" parent="TextBase">
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
+    </style>
+    
+    <style name="TextNormal" parent="TextBase">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
+    </style>
+
+    <style name="TextNormalBold" parent="TextBaseBold">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
+    </style>
+    
+    <style name="TextSmall" parent="TextBase">
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+    
+    <style name="TextXSmallSilver" parent="TextSmall">
+        <item name="android:textSize">@dimen/text_size_xsmall</item>
+        <item name="android:textColor">@color/vce_silver</item>
+    </style>
+    
+    <style name="TextError" parent="TextBase">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/text_error</item>
+    </style>
+    
+    <style name="TextHeaderUnderlined">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ffbababa</item>
+        <item name="android:textStyle">bold</item>
+        <!-- <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">4dp</item> -->
+        <item name="android:background">@drawable/accent_bottom_border</item>
+    </style>
+    
+    <style name="TextHeader2">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/vce_silver</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:background">@drawable/accent_bottom_border</item>
+    </style>
+    
+    <style name="SpinnerStyleTextView" parent="TextBase">
+        <item name="android:background">@drawable/spinner</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+    </style>
+
+    <style name="ButtonWhite" parent="TextBaseBold">
+        <item name="android:minHeight">32dp</item>
+        <item name="android:background">@drawable/btn_white</item>
+        <item name="android:textColor">@color/text_button</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <style name="ButtonBottom" parent="TextBaseBold">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:background">@drawable/btn_bottom</item>
+        <item name="android:textColor">@color/text_button</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:paddingLeft">@dimen/default_margin</item>
+        <item name="android:paddingRight">@dimen/default_margin</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
+</resources>

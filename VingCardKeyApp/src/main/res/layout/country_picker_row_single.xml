@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/list_item_single"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:background="@drawable/card_bg">
+
+        <ImageView
+                android:id="@+id/row_icon"
+                android:layout_width="@dimen/img_small_size"
+                android:layout_height="@dimen/img_small_size"
+                android:layout_margin="@dimen/img_small_padding"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@null"
+                android:src="@drawable/flag_ad"
+                android:scaleType="fitCenter" />
+
+        <TextView
+                android:id="@+id/row_title"
+                style="@style/TextLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/row_icon"
+                android:textIsSelectable="false" />
+
+    </RelativeLayout>
+</FrameLayout>

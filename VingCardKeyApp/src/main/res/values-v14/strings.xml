@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">VingCard</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+
+    <!-- Welcome screen -->
+    <string name="welcome_description">Welcome to the VingCard Hotel Keys app. This app lets you receive mobile keys from
+        hotels around the world and use NFC in your phone to open doors with ease. With a mobile key you no longer need to check in to the hotel but can go straight to your room!
+        \n\nTo identify your bookings we need your mobile phone number. Press the "Continue" button to get started.
+    </string>
+    <string name="welcome_button_text">Continue</string>
+
+    <!-- Register screen -->
+    <string name="reg_title">Confirm phone number</string>
+    <string name="reg_button_text">Register number</string>
+    <string name="reg_country_hint">Your country</string>
+    <string name="reg_phone_hint">Your phone number</string>
+    <string name="reg_welcome">Welcome to VingCard</string>
+    <string name="reg_instructions">Please choose country and input your phone number.</string>
+    <string name="reg_warning">VingCard Mobile Keys will send a one time SMS message to verify your phone number. Carrier SMS charges may apply.</string>
+    <string name="reg_dialog_title">Verify number</string>
+    <string name="reg_dialog_text">We want to confirm your number:\n\n<b>%1$s</b>\n\nIs this correct or do you want to change it?</string>
+    <string name="reg_dialog_button_neg">Change</string>
+    <string name="reg_dialog_button_pos">Correct</string>
+    <string name="reg_success">Phone registered successfully!</string>
+    
+    <!-- Country picker -->
+    <string name="country_title">Select country</string>
+    <string name="country_search">Search country</string>
+
+    <!-- Waiting screen -->
+    <string name="waiting_title">Registering</string>
+    <string name="waiting_button_text">Change number</string>
+
+    <!-- Cards overview -->
+    <string name="cards_empty">No keys available</string>
+    <string name="cards_empty_desc">Book a stay in one of our supported hotels, and your hotel key will be delivered automatically. In this screen you can then browse your keys, and use your phone at any time to open your hotel door.</string>
+    
+    <!-- Card -->
+    <string name="card_room">Room %1$s</string>
+    <string name="card_valid_waiting_one">Valid tomorrow</string>
+    <string name="card_valid_waiting">Valid in %1$d days</string>
+    <string name="card_valid">Valid</string>
+    <string name="card_valid_expired">Key expired</string>
+    <string name="card_checkin">Check-in</string>
+    <string name="card_checkout">Check-out</string>
+    <string name="card_address_title">Hotel address</string>
+    <string name="card_address_button">Directions</string>
+    <string name="card_web_title">Hotel website</string>
+    <string name="card_web_button">Visit site</string>
+    <string name="card_web_button2">Visit personal site</string>
+    <string name="card_mail_title">Hotel email</string>
+    <string name="card_mail_button">Send mail</string>
+    <string name="card_phone_title">Phone</string>
+    <string name="card_phone_button">Call hotel</string>
+
+    <!-- New Key Dialog -->
+    <string name="new_key_dialog_title">New key ready</string>
+    
+    <!-- Door Dialog -->
+    <string name="door_dialog_title">Opening door</string>
+    
+    <!-- Error messages -->
+    <string name="error_title">Ooops</string>
+    <string name="error_register">Unable to register phone. Make sure you have an internet connection.</string>
+    <string name="error_sms_receive">Unable to receive/read SMS. Make sure you are connected to a network and try again.</string>
+    <string name="error_phone_input">Please select country and input your phone number.</string>
+    <string name="error_intent">No application can handle this action</string>
+
+</resources>

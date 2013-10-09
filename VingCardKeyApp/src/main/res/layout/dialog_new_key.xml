@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/newkeydialog_width"
+    android:layout_height="@dimen/newkeydialog_height"
+    android:background="@android:color/holo_blue_dark"
+    android:gravity="center_horizontal" >
+
+    <include 
+        android:id="@+id/keydialog_card"
+        layout="@layout/fragment_card"
+        android:layout_width="@dimen/card_small_width"
+    	android:layout_height="@dimen/card_small_height"  
+    	android:layout_margin="@dimen/small_margin"  	
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    
+    <RelativeLayout
+        android:id="@+id/keydialog_anim"
+        android:layout_width="@dimen/anim_width"
+        android:layout_height="@dimen/anim_height"
+        android:layout_margin="@dimen/small_margin"  	
+        android:layout_below="@id/keydialog_card"
+        android:layout_centerHorizontal="true" >
+
+        <ImageView
+            android:id="@+id/keydialog_lock"
+            android:layout_width="@dimen/anim_lock_width"
+            android:layout_height="@dimen/anim_lock_height"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitCenter"
+            android:src="@drawable/lock" />
+
+        <ImageView
+            android:id="@+id/keydialog_phone"
+            android:layout_width="@dimen/anim_phone_width"
+            android:layout_height="@dimen/anim_phone_height"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/app_name"
+            android:paddingLeft="-75dp"
+            android:paddingTop="60dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/android_phone" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

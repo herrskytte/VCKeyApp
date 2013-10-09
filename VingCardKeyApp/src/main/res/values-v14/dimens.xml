@@ -1,0 +1,44 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="default_margin">16dp</dimen>
+    <dimen name="button_margin">12dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
+    <dimen name="xsmall_margin">4dp</dimen>
+    
+    <dimen name="text_size_xsmall">12sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_xlarge">24sp</dimen>
+    
+    <dimen name="img_icon_size">32dp</dimen>
+    <dimen name="img_small_size">50dp</dimen>
+    <dimen name="img_small_padding">10dp</dimen>
+
+    <dimen name="card_width">300dp</dimen>
+    <dimen name="card_height">200dp</dimen>
+    <dimen name="card_small_width">210dp</dimen>
+    <dimen name="card_small_height">140dp</dimen>
+    <dimen name="card_spacing">12dp</dimen>
+    <dimen name="card_logo_width">50dp</dimen>
+    <dimen name="card_logo_height">35dp</dimen>
+    <dimen name="card_hotel_logo_width">100dp</dimen>
+    <dimen name="card_hotel_logo_height">100dp</dimen>
+    <dimen name="card_default_margin">8dp</dimen>
+    
+    <dimen name="anim_width">250dp</dimen>
+    <dimen name="anim_height">150dp</dimen>
+    <dimen name="anim_phone_width">150dp</dimen>
+    <dimen name="anim_phone_height">150dp</dimen>
+    <dimen name="anim_lock_width">60dp</dimen>
+    <dimen name="anim_lock_height">60dp</dimen>
+    
+    <dimen name="newkeydialog_width_land">492dp</dimen>
+    <dimen name="newkeydialog_height_land">166dp</dimen>
+    <dimen name="newkeydialog_width">266dp</dimen>
+    <dimen name="newkeydialog_height">322dp</dimen>
+
+    <dimen name="tab_height">48dp</dimen>
+
+</resources>

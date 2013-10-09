@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.vingcard.vingcardkeyapp.standard.MyLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_back_root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    tools:ignore="HardcodedText" >
+
+    <LinearLayout
+        android:id="@+id/card_back_content"
+        android:layout_width="@dimen/card_width"
+        android:layout_height="@dimen/card_height"
+        android:background="@drawable/card_background"
+        android:padding="@dimen/card_default_margin" 
+        android:orientation="vertical"
+        >
+
+        <!-- Hotel name -->
+        <TextView
+            android:id="@+id/card_back_hotel_name"
+            style="@style/TextNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/xsmall_margin"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="Sheraton Park Hotel at the Anaheim Resort" />
+
+        <View
+            android:id="@+id/card_back_seperator2"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginBottom="@dimen/small_margin"
+            android:background="@color/vce_light_grey" />
+        <!-- Valid row -->
+        <LinearLayout
+            android:id="@+id/card_back_valid_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:id="@+id/card_back_checkin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/card_back_checkin_date"
+                    style="@style/TextLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Nov. 8"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/card_back_checkin_title"
+                    style="@style/TextXSmallSilver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/card_back_checkin_date"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/card_checkin" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/card_back_checkout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/list_extra_button_left_border" >
+
+                <TextView
+                    android:id="@+id/card_back_checkout_date"
+                    style="@style/TextLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Nov. 10"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/card_back_checkout_title"
+                    style="@style/TextXSmallSilver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/card_back_checkout_date"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/card_checkout" />
+            </RelativeLayout>
+        </LinearLayout>
+        
+         <View
+            android:id="@+id/card_back_seperator1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginBottom="@dimen/small_margin"
+            android:background="@color/vce_light_grey" />
+        
+        <!-- Action button row -->
+        <LinearLayout
+            android:id="@+id/card_back_button_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            
+            <ImageButton
+                android:id="@+id/card_back_web_img"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/card_logo_height"
+                android:layout_weight="1"
+                android:background="@drawable/activatable_item_background"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_action_home" />
+            
+            <ImageButton
+                android:id="@+id/card_back_info_img"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/card_logo_height"
+                android:layout_weight="1"
+                android:background="@drawable/list_extra_button_background"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_action_info" />
+
+            <ImageButton
+                android:id="@+id/card_back_mail_img"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/card_logo_height"
+                android:layout_weight="1"
+                android:background="@drawable/list_extra_button_background"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_action_mail" />
+
+            <ImageButton
+                android:id="@+id/card_back_call_img"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/card_logo_height"
+                android:layout_weight="1"
+                android:background="@drawable/list_extra_button_background"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_action_phone_start" />
+
+            <ImageButton
+                android:id="@+id/card_back_map_img"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/card_logo_height"
+                android:layout_weight="1"
+                android:background="@drawable/list_extra_button_background"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_action_location" />
+        </LinearLayout>
+
+       
+        
+        
+        
+        
+        
+    </LinearLayout>
+
+</com.vingcard.vingcardkeyapp.standard.MyLinearLayout>

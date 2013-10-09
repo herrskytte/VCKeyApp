@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">    
+    
+    <!-- TextViews with Roboto thin font -->
+    <style name="TextBase">
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+    
+    <style name="TextBaseBold">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+</resources>

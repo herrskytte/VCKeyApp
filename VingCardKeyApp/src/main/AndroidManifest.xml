@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.vingcard.vingcardkeyapp"
+    android:versionCode="3"
+    android:versionName="1.2" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- GCM -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <permission android:name="com.vingcard.vingcardkeyapp.permission.C2D_MESSAGE" 
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.vingcard.vingcardkeyapp.permission.C2D_MESSAGE" />
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        
+        <activity
+            android:name="com.vingcard.vingcardkeyapp.ui.MainActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="com.vingcard.vingcardkeyapp.ui.RegisterActivity"
+            android:label="@string/reg_title"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        
+        <activity
+            android:name="com.vingcard.vingcardkeyapp.ui.CountryPickerActivity"
+            android:label="@string/country_title"
+            android:parentActivityName="com.vingcard.vingcardkeyapp.ui.RegisterActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity
+                android:name="com.vingcard.vingcardkeyapp.ui.WaitingActivity"
+                android:label="@string/waiting_title"
+                android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity
+            android:name="com.vingcard.vingcardkeyapp.ui.DoorHandlerActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:host="ext"
+                    android:pathPrefix="/vingcard.com:x"
+                    android:scheme="vnd.android.nfc" />
+            </intent-filter>
+        </activity>
+        
+        <receiver
+            android:name="com.vingcard.vingcardkeyapp.gcm.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.vingcard.vingcardkeyapp" />
+            </intent-filter>
+        </receiver>
+        
+        <receiver 
+            android:name="com.vingcard.vingcardkeyapp.service.NetworkStateReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        
+        <receiver android:name="com.vingcard.vingcardkeyapp.sms.SmsBroadcastReceiver" android:exported="true">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+        
+        <service android:name="com.vingcard.vingcardkeyapp.gcm.GcmIntentService" />
+        
+		<service
+            android:name="com.vingcard.vingcardkeyapp.service.KeySyncService"
+            android:exported="false" />
+        
+        <service
+            android:name="com.vingcard.vingcardkeyapp.service.EventSyncService"
+            android:exported="false" />
+
+        <provider
+            android:name=".storage.VingCardProvider"
+            android:authorities="com.vingcard.vingcardkeyapp"
+            android:exported="false" >
+        </provider>
+    </application>
+
+</manifest>
