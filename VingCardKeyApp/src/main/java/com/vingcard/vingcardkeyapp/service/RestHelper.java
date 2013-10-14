@@ -1,35 +1,27 @@
 package com.vingcard.vingcardkeyapp.service;
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-
-import com.vingcard.vingcardkeyapp.model.Hotel;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
-
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
 import android.os.ResultReceiver;
 import android.util.Log;
-
 import com.vingcard.vingcardkeyapp.model.DoorEvent;
+import com.vingcard.vingcardkeyapp.model.Hotel;
 import com.vingcard.vingcardkeyapp.model.KeyCard;
 import com.vingcard.vingcardkeyapp.model.User;
 import com.vingcard.vingcardkeyapp.sms.SmsHelper;
 import com.vingcard.vingcardkeyapp.storage.StorageHelper;
 import com.vingcard.vingcardkeyapp.util.PreferencesUtil;
+import org.springframework.http.*;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 
 public class RestHelper {
@@ -38,7 +30,8 @@ public class RestHelper {
 	// Result-callbacks
 	public static final int HTTP_OK = 200;
 	public static final int HTTP_FAILED = -400;
-	
+	public static final int SERVER_FAILED = -500;
+
 	//Registration-callbacks
 	public static final int SMS_REQUESTING = 300;
 	public static final int SMS_RECEIVING = 302;
@@ -149,31 +142,14 @@ public class RestHelper {
 	 * Method used for registering user.
 	 * Requests a code from the server via SMS and then registers with the received code
 	 */
-	public void registerUser(User user, ResultReceiver mReceiver) {
+	public AsyncTask registerUser(User user, ResultReceiver mReceiver) {
 		this.callback = mReceiver;
-		new RegisterUserTask().execute(user);
+		return new RegisterUserTask().execute(user);
 	}
 
 	private class RegisterUserTask extends AsyncTask<User, Void, User> {
 
-		private ProgressDialog progressDialog;
 		private boolean canceled = false;
-		
-		@Override
-		protected void onPreExecute() {
-			progressDialog = new ProgressDialog(context);
-			progressDialog.setIndeterminate(true);
-			progressDialog.setCancelable(true);
-			progressDialog.setOnCancelListener(new OnCancelListener() {
-				@Override
-				public void onCancel(DialogInterface dialog) {
-					canceled = true;
-				}
-			});
-			progressDialog.setCanceledOnTouchOutside(false);
-			progressDialog.show();
-			progressDialog.setMessage("Waiting for confirmation SMS...");
-		}
 
 		@Override
 		protected User doInBackground(User... params) {
@@ -215,7 +191,10 @@ public class RestHelper {
 				responseResult = HTTP_OK;
 				return responseEntity.getBody();
 
-			} catch (Exception e) {
+			} catch (HttpServerErrorException re){
+                responseResult = SERVER_FAILED;
+            }
+            catch (Exception e) {
 				Log.e(TAG, "Error registering: " + e.getMessage());
 			}
 
@@ -236,8 +215,6 @@ public class RestHelper {
 			if (user != null) {
 				PreferencesUtil.setUserData(context, user);
 			}
-
-			progressDialog.dismiss();
 			callback.send(responseResult, null);
 		}
 	}
@@ -264,12 +241,13 @@ public class RestHelper {
 //            Log.e(TAG, "Error getting hotel: " + e.getMessage());
 //            return null;
 //        }
-        return createDemoHotel();
+        return createDemoHotel(hotelId);
     }
 
-    private Hotel createDemoHotel(){
+    private Hotel createDemoHotel(String hotelId){
+        Hotel h = new Hotel();
+        h.hotelId = hotelId;
         if(new Random().nextDouble() > 0.5){
-            Hotel h = new Hotel();
             h.name = "VingCard Demo Hotel";
             h.address = "Sophus Lies vei, 1523 Moss, Norge";
             h.phone = "+47 69 24 50 00";
@@ -279,7 +257,6 @@ public class RestHelper {
             return h;
         }
         else {
-            Hotel h = new Hotel();
             h.name = "Sheraton Park Hotel at the Anaheim Resort";
             h.address = "900 South Disneyland Drive Anaheim, California 92802";
             h.phone = "+1 (714) 778-1700";

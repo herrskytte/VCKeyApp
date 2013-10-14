@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/cards_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/default_margin"
+        android:padding="@dimen/default_margin"
+        android:background="@drawable/card_bg"
+        android:visibility="gone"
+        tools:visibility="visible">
+    <ImageView
+            android:id="@+id/cards_empty_logo"
+            android:layout_width="@dimen/card_logo_width"
+            android:layout_height="@dimen/card_logo_height"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="@dimen/small_margin"
+            android:contentDescription="@null"
+            android:scaleType="fitStart"
+            android:src="@drawable/card_nfc_logo" />
+    <TextView
+            android:id="@+id/cards_empty_title"
+            style="@style/TextLargeBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:text="@string/cards_empty"
+            />
+    <TextView
+            android:id="@+id/cards_empty_desc"
+            style="@style/TextNormal"
+            android:layout_width="@dimen/card_max_width"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cards_empty_logo"
+            android:text="@string/cards_empty_desc"
+            />
+</RelativeLayout>

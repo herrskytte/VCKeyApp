@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/btn_bottom" />
+    <item android:drawable="@drawable/list_extra_button_left_border" />
+</layer-list>

@@ -32,12 +32,15 @@
 
     <!-- Waiting screen -->
     <string name="waiting_title">Registering</string>
+    <string name="waiting_header">Sending confirmation SMS to:</string>
+    <string name="waiting_timer">Please wait. This can take up to 30 seconds.</string>
     <string name="waiting_button_text">Change number</string>
+    <string name="waiting_retry">Retry</string>
 
     <!-- Cards overview -->
     <string name="cards_empty">No keys available</string>
     <string name="cards_empty_desc">Book a stay in one of our supported hotels, and your hotel key will be delivered automatically. In this screen you can then browse your keys, and use your phone at any time to open your hotel door.</string>
-    
+
     <!-- Card -->
     <string name="card_room">Room %1$s</string>
     <string name="card_valid_waiting_one">Valid tomorrow</string>
@@ -58,13 +61,14 @@
 
     <!-- New Key Dialog -->
     <string name="new_key_dialog_title">New key ready</string>
-    
+
     <!-- Door Dialog -->
     <string name="door_dialog_title">Opening door</string>
-    
+
     <!-- Error messages -->
     <string name="error_title">Ooops</string>
     <string name="error_register">Unable to register phone. Make sure you have an internet connection.</string>
+    <string name="error_server">Unable to register phone. Problem with our servers. Please try later.</string>
     <string name="error_sms_receive">Unable to receive/read SMS. Make sure you are connected to a network and try again.</string>
     <string name="error_phone_input">Please select country and input your phone number.</string>
     <string name="error_intent">No application can handle this action</string>

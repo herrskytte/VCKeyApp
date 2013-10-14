@@ -3,72 +3,94 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <LinearLayout
-                android:id="@+id/waiting_card"
+    <LinearLayout
+            android:id="@+id/waiting_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:background="@drawable/card_bg"
+            android:orientation="vertical">
+        <TextView
+                android:id="@+id/waiting_header"
+                style="@style/TextNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:text="@string/waiting_header" />
+        <TextView
+                android:id="@+id/waiting_number"
+                style="@style/TextNormalBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="@dimen/default_margin"
+                tools:text="+47 95 18 18 87" />
+
+        <RelativeLayout
+                android:id="@+id/waiting_progress_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/default_margin"
-                android:background="@drawable/card_bg"
-                android:orientation="vertical">
-            <TextView
-                    android:id="@+id/waiting_description"
-                    style="@style/TextNormal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_margin"
-                    android:layout_marginLeft="@dimen/default_margin"
-                    android:layout_marginRight="@dimen/default_margin"
-                    android:layout_marginBottom="@dimen/small_margin"
-                    android:text="Sending confirmation SMS to:" />
-            <TextView
-                    android:id="@+id/waiting_number"
-                    style="@style/TextNormalBold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/default_margin"
-                    android:layout_marginRight="@dimen/default_margin"
-                    android:layout_marginBottom="@dimen/small_margin"
-                    tools:text="+47 95 18 18 87" />
-
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="@dimen/default_margin">
             <ProgressBar
-                    style="?android:attr/progressBarStyleLarge"
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/small_margin"
-                    android:id="@+id/progressBar"
-                    android:layout_gravity="center"/>
-
-
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/small_margin"
+                    />
             <TextView
                     android:id="@+id/waiting_description"
-                    style="@style/TextNormal"
+                    style="@style/TextSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="@dimen/default_margin"
-                    android:text="Please wait. This can take up to 30 seconds." />
+                    android:layout_toRightOf="@id/progressBar"
+                    android:layout_centerVertical="true"
+                    android:text="@string/waiting_timer" />
 
-
-            <TextView
-                    android:id="@+id/waiting_error"
-                    style="@style/TextError"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/default_margin"
-                    android:layout_marginRight="@dimen/default_margin"
-                    android:layout_marginBottom="@dimen/default_margin"
-                    tools:text="@string/error_phone_input"
-                    android:visibility="gone"/>
-
+        </RelativeLayout>
+        <TextView
+                android:id="@+id/waiting_error"
+                style="@style/TextError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginBottom="@dimen/default_margin"
+                tools:text="@string/error_phone_input"
+                android:visibility="gone" />
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
             <Button
-                    android:id="@+id/waiting_button"
+                    android:id="@+id/waiting_button_change"
                     style="@style/ButtonBottom"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:drawableLeft="@drawable/ic_action_goleft"
                     android:text="@string/waiting_button_text"
                     />
-
+            <Button
+                    android:id="@+id/waiting_button_retry"
+                    style="@style/ButtonBottomExtra"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_action_reload"
+                    android:text="@string/waiting_retry"
+                    android:visibility="gone"
+                    />
         </LinearLayout>
+
+
+    </LinearLayout>
 
 </ScrollView>

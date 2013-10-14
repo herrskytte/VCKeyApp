@@ -8,6 +8,7 @@
 
     <color name="button_stroke">#e5e5e5</color>
     <color name="button_background">#e5e5e5</color>
+    <color name="tab_selected">#505050</color>
 
     <color name="text_black">#000000</color>
     <color name="text_error">#a42023</color>

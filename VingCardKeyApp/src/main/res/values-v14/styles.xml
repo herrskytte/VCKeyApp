@@ -34,6 +34,10 @@
         <item name="android:textSize">@dimen/text_size_large</item>
         <item name="android:lineSpacingMultiplier">1.1</item>
     </style>
+
+    <style name="TextLargeBold" parent="TextBaseBold">
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
     
     <style name="TextNormal" parent="TextBase">
         <item name="android:textSize">@dimen/text_size_medium</item>
@@ -98,6 +102,10 @@
         <item name="android:paddingLeft">@dimen/default_margin</item>
         <item name="android:paddingRight">@dimen/default_margin</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ButtonBottomExtra" parent="ButtonBottom">
+        <item name="android:background">@drawable/btn_bottom_extra</item>
     </style>
 
 

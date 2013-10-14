@@ -18,7 +18,6 @@ public class MyPagerAdapter extends FragmentStatePagerAdapter implements
 		ViewPager.OnPageChangeListener {
 	
 	public final static float BIG_SCALE = 1.0f;
-	public final static float MEDIUM_SCALE = 0.85f;
 	public final static float SMALL_SCALE = 0.7f;
 	public final static float DIFF_SCALE = BIG_SCALE - SMALL_SCALE;
 
@@ -31,15 +30,16 @@ public class MyPagerAdapter extends FragmentStatePagerAdapter implements
 	public MyPagerAdapter(Context context, FragmentManager fm, List<KeyCard> data) {
 		super(fm);
 		this.context = context;
-		setData(data);
-	}
-	
-	public void setData(List<KeyCard> data) {
-	    this.data = data;
+        this.data = data;
 	}
 
 	@Override
 	public Fragment getItem(int position){
+        Fragment f = mFragmentMap.get(position);
+        if(f != null){
+            return f;
+        }
+
         // make the first pager bigger than others
         float scale;
         if (firstObject){
@@ -120,7 +120,11 @@ public class MyPagerAdapter extends FragmentStatePagerAdapter implements
 	}
 	
 	private CardFragment getFragment(int position){
-		return (CardFragment) mFragmentMap.get(position);
+        Fragment f = mFragmentMap.get(position);
+        if(f == null){
+            f = getItem(position);
+        }
+		return (CardFragment) f;
 	}
 
 }

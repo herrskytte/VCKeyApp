@@ -91,7 +91,7 @@ public class CardsOverviewFragment extends Fragment implements LoaderManager.Loa
 		int marginPx = bigPageMarginPx + smallPageMarginPx;	
 		int px = (int) (marginPx - getResources().getDimension(R.dimen.card_spacing));
 		mCardsViewPager.setPageMargin(-px);
-		
+
 		showAppVersion(root.findViewById(R.id.cards_version));
 		
 		return root;
@@ -231,10 +231,11 @@ public class CardsOverviewFragment extends Fragment implements LoaderManager.Loa
         timings.addSplit("setOffscreenPageLimit");
         mPagerAdapter.notifyDataSetChanged();
         timings.addSplit("notifyDataSetChanged");
-        mCardsViewPager.setCurrentItem(0);
+        //mCardsViewPager.setCurrentItem(0);
         timings.addSplit("setCurrentItem");
-        mPagerAdapter.onPageSelected(0);
-        timings.addSplit("onPageSelected");
+        //mPagerAdapter.onPageSelected(0);
+        mPagerAdapter.onPageSelected(mCardsViewPager.getCurrentItem());
+        timings.addSplit("onPageSelected: " + mCardsViewPager.getCurrentItem());
         timings.dumpToLog();
 
 		if(mCardsList.isEmpty()){

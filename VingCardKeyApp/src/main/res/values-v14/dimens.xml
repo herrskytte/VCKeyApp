@@ -40,5 +40,6 @@
     <dimen name="newkeydialog_height">322dp</dimen>
 
     <dimen name="tab_height">48dp</dimen>
+    <dimen name="card_max_width">400dp</dimen>
 
 </resources>

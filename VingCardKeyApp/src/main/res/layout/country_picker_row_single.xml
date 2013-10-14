@@ -11,9 +11,9 @@
 
         <ImageView
                 android:id="@+id/row_icon"
-                android:layout_width="@dimen/img_small_size"
-                android:layout_height="@dimen/img_small_size"
-                android:layout_margin="@dimen/img_small_padding"
+                android:layout_width="@dimen/img_icon_size"
+                android:layout_height="@dimen/img_icon_size"
+                android:layout_margin="@dimen/small_margin"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="@null"
@@ -22,12 +22,13 @@
 
         <TextView
                 android:id="@+id/row_title"
-                style="@style/TextLarge"
+                style="@style/TextNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/small_margin"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/row_icon"
-                android:textIsSelectable="false" />
+                android:textIsSelectable="false"/>
 
     </RelativeLayout>
 </FrameLayout>

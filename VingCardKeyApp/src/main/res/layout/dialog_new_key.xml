@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/newkeydialog_width"
     android:layout_height="@dimen/newkeydialog_height"
-    android:background="@android:color/holo_blue_dark"
     android:gravity="center_horizontal" >
 
     <include 

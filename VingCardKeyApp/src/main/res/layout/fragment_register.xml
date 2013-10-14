@@ -8,7 +8,7 @@
             android:layout_height="wrap_content" >
         <LinearLayout
                 android:id="@+id/reg_input"
-                android:layout_width="400dp"
+                android:layout_width="@dimen/card_max_width"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
@@ -18,7 +18,7 @@
 
             <TextView
                     android:id="@+id/reg_header"
-                    style="@style/TextLarge"
+                    style="@style/TextNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/default_margin"

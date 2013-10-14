@@ -46,17 +46,8 @@ public class CardFragment extends Fragment {
 	//Back
 	private MyLinearLayout mCardBackRoot;
     private FragmentTabHost mTabHost;
-	private TextView mHotelNameBackText;
-	private TextView mAddressText;
-	private TextView mPhoneText;
-	private TextView mWebText;
 	private TextView mCheckinText;
 	private TextView mCheckoutText;
-	private ImageButton mWebButton;
-	private ImageButton mInfoButton;
-	private ImageButton mEmailButton;
-	private ImageButton mPhoneButton;
-	private ImageButton mNavigateButton;
 	
 	
 	public static Fragment newInstance(Context context, float scale, KeyCard keyCard)
@@ -90,17 +81,8 @@ public class CardFragment extends Fragment {
 
 		mCardBackRoot = (MyLinearLayout) root.findViewById(R.id.card_back_root);
         mTabHost = (FragmentTabHost) root.findViewById(android.R.id.tabhost);
-		mHotelNameBackText =  (TextView) root.findViewById(R.id.card_back_hotel_name);
-		mAddressText =  (TextView) root.findViewById(R.id.card_back_hotel_address);
-		mPhoneText =  (TextView) root.findViewById(R.id.card_back_hotel_phone);
-		mWebText =  (TextView) root.findViewById(R.id.card_back_hotel_web);
 		mCheckinText =  (TextView) root.findViewById(R.id.card_back_checkin_date);
 		mCheckoutText =  (TextView) root.findViewById(R.id.card_back_checkout_date);
-		mWebButton =  (ImageButton) root.findViewById(R.id.card_back_web_img);
-		mInfoButton =  (ImageButton) root.findViewById(R.id.card_back_info_img);
-		mEmailButton =  (ImageButton) root.findViewById(R.id.card_back_mail_img);
-		mPhoneButton =  (ImageButton) root.findViewById(R.id.card_back_call_img);
-		mNavigateButton =  (ImageButton) root.findViewById(R.id.card_back_map_img);
 
 		
 		if(getArguments() != null){
@@ -174,38 +156,41 @@ public class CardFragment extends Fragment {
         if(mKeyCard.hotel != null){
             mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
 
-            //ViewGroup.LayoutParams lp = mTabHost.getTabWidget().getLayoutParams();
-            //lp.height = (int) getResources().getDimension(R.dimen.tab_height);
-            //View v = mTabHost.getTabWidget();
-            //v.setBackgroundColor(Color.BLACK);
+            ViewGroup.LayoutParams lp = mTabHost.getTabWidget().getLayoutParams();
+            lp.height = (int) getResources().getDimension(R.dimen.tab_height);
+            View v = mTabHost.getTabWidget();
+            v.setBackgroundColor(Color.BLACK);
 
-            Drawable icAdr = getResources().getDrawable(R.drawable.ic_action_location);
             Bundle bundleAdr = new Bundle();
             bundleAdr.putInt(CardTabFragment.TYPE, CardTabFragment.TYPE_ADDRESS);
             bundleAdr.putString(CardTabFragment.DATA, mKeyCard.hotel.address);
-            mTabHost.addTab(mTabHost.newTabSpec("tabAdr").setIndicator("", icAdr), CardTabFragment.class, bundleAdr);
+            mTabHost.addTab(mTabHost.newTabSpec("tabAdr").setIndicator(customTabView(R.drawable.ic_action_location_black)), CardTabFragment.class, bundleAdr);
 
-            Drawable icWeb = getResources().getDrawable(R.drawable.ic_action_home);
             Bundle bundleWeb = new Bundle();
             bundleWeb.putInt(CardTabFragment.TYPE, CardTabFragment.TYPE_WEB);
             bundleWeb.putString(CardTabFragment.DATA, mKeyCard.hotel.website);
-            mTabHost.addTab(mTabHost.newTabSpec("tabWeb").setIndicator("", icWeb), CardTabFragment.class, bundleWeb);
+            mTabHost.addTab(mTabHost.newTabSpec("tabWeb").setIndicator(customTabView(R.drawable.ic_action_globe_black)), CardTabFragment.class, bundleWeb);
 
-            Drawable icMail = getResources().getDrawable(R.drawable.ic_action_mail);
             Bundle bundleMail = new Bundle();
             bundleMail.putInt(CardTabFragment.TYPE, CardTabFragment.TYPE_MAIL);
             bundleMail.putString(CardTabFragment.DATA, mKeyCard.hotel.email);
-            mTabHost.addTab(mTabHost.newTabSpec("tabMail").setIndicator("", icMail), CardTabFragment.class, bundleMail);
+            mTabHost.addTab(mTabHost.newTabSpec("tabMail").setIndicator(customTabView(R.drawable.ic_action_mail_black)), CardTabFragment.class, bundleMail);
 
-            Drawable icPhone = getResources().getDrawable(R.drawable.ic_action_phone_start);
             Bundle bundlePhone = new Bundle();
             bundlePhone.putInt(CardTabFragment.TYPE, CardTabFragment.TYPE_PHONE);
             bundlePhone.putString(CardTabFragment.DATA, mKeyCard.hotel.phone);
-            mTabHost.addTab(mTabHost.newTabSpec("tabPhone").setIndicator("", icPhone), CardTabFragment.class, bundlePhone);
+            mTabHost.addTab(mTabHost.newTabSpec("tabPhone").setIndicator(customTabView(R.drawable.ic_action_phone_start_black)), CardTabFragment.class, bundlePhone);
         }
         else{
             mTabHost.setVisibility(View.GONE);
         }
+    }
+
+    private View customTabView(int imageId) {
+        ImageView imgTab = (ImageView) getActivity().getLayoutInflater().inflate(
+                R.layout.card_tab_indicator, null);
+        imgTab.setImageResource(imageId);
+        return imgTab;
     }
 
     private void setupButtonListeners() {
