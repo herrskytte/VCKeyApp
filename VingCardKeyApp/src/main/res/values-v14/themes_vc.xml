@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="VC" parent="android:Theme.Holo.Light.DarkActionBar">
+
+        <!-- COLOR THEME -->
+        <item name="android:editTextBackground">@drawable/vc_edit_text_holo_light</item>
+        <item name="android:editTextStyle">@style/EditTextVC</item>
+        <item name="android:buttonStyle">@style/ButtonVC</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonVC</item>
+        <item name="android:spinnerStyle">@style/SpinnerVC</item>
+        <item name="android:dropDownSpinnerStyle">@style/SpinnerVC</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItemVC</item>
+        <item name="android:listViewStyle">@style/ListViewVC</item>
+        <item name="android:listViewWhiteStyle">@style/ListViewVC.White</item>
+        <item name="android:listChoiceBackgroundIndicator">@drawable/vc_list_selector_holo_light</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/vc_activated_background_holo_light</item>
+
+        <!-- ACTION-BAR THEME -->
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_vca</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Vca</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Vca</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Vca</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Vca</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Vca</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_vca</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_vca</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Vca</item>
+        <item name="android:actionBarWidgetTheme">@style/Theme.Vca.Widget</item>
+
+    </style>
+
+
+</resources>

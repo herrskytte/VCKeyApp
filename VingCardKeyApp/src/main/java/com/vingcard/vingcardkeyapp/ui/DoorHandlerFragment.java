@@ -47,25 +47,23 @@ public class DoorHandlerFragment extends DialogFragment implements SensorEventLi
 	private SensorManager mSensorManager;
     private static final float NOISE = (float) 3;
 
-	private enum DoorStatus{
-		READ_FAILED,
-		KEY_NOT_FOUND,
-		WRITE_FAILED,
-		SUCCESS
-	}
+    private static final int READ_FAILED = 1;
+    private static final int KEY_NOT_FOUND = 2;
+    private static final int WRITE_FAILED = 3;
+    private static final int SUCCESS = 4;
 
-	TextView mHelpTextView;
-	ImageView mStatusImageView;
-	ImageView mLockImageView;
-	ImageView mPhoneImageView;
-	DoorStatus mCurrentStatus;
-	View mDoorAnimView;
-	String mCurrentHotelId;
-	String mCurrentRoomId;
-	String mCurrentEventData;
-	boolean mCardCheckedIn;
-	String mCurrentCardId;
-	String output;
+	private TextView mHelpTextView;
+	private ImageView mStatusImageView;
+	private ImageView mLockImageView;
+	private ImageView mPhoneImageView;
+	private int mCurrentStatus;
+	private View mDoorAnimView;
+	private String mCurrentHotelId;
+	private String mCurrentRoomId;
+	private String mCurrentEventData;
+	private boolean mCardCheckedIn;
+	private String mCurrentCardId;
+	private String output;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -79,7 +77,7 @@ public class DoorHandlerFragment extends DialogFragment implements SensorEventLi
 			ultralight = MifareUltralight.get(tag);
 		}
 		if(ultralight == null){
-			mCurrentStatus = DoorStatus.READ_FAILED;
+			mCurrentStatus = READ_FAILED;
 			return;
 		}
 
@@ -93,7 +91,7 @@ public class DoorHandlerFragment extends DialogFragment implements SensorEventLi
 
 			byte[] key = getKeyFromDB();
 			if(key == null){
-				mCurrentStatus = DoorStatus.KEY_NOT_FOUND;
+				mCurrentStatus = KEY_NOT_FOUND;
 				return;
 			}
 
@@ -103,9 +101,9 @@ public class DoorHandlerFragment extends DialogFragment implements SensorEventLi
 				ultralight.writePage( ((i/4)+10), b);
 			}
 			ultralight.close();
-			mCurrentStatus = DoorStatus.SUCCESS;
+			mCurrentStatus = SUCCESS;
 		} catch (Exception e) {
-			mCurrentStatus = DoorStatus.WRITE_FAILED;
+			mCurrentStatus = WRITE_FAILED;
 			output = "Failed: " + e.getMessage();
 		}
 
@@ -142,7 +140,7 @@ public class DoorHandlerFragment extends DialogFragment implements SensorEventLi
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-		if(mCurrentStatus == DoorStatus.SUCCESS && mCurrentEventData != null){
+		if(mCurrentStatus == SUCCESS && mCurrentEventData != null){
 			DoorEvent event = new DoorEvent();
 			event.hotelId = mCurrentHotelId;
 			event.roomId = mCurrentRoomId;
@@ -161,7 +159,7 @@ public class DoorHandlerFragment extends DialogFragment implements SensorEventLi
 	}
 
 	private void updateDialogFromStatus() {
-		if(mCurrentStatus == DoorStatus.SUCCESS){
+		if(mCurrentStatus == SUCCESS){
 			mStatusImageView.setImageResource(R.drawable.success);
 
 			AnimatorSet phoneSet = (AnimatorSet) 
@@ -171,7 +169,7 @@ public class DoorHandlerFragment extends DialogFragment implements SensorEventLi
 
 			startMotionSensor();
 		}
-		else if(mCurrentStatus == DoorStatus.KEY_NOT_FOUND){
+		else if(mCurrentStatus == KEY_NOT_FOUND){
 			mDoorAnimView.setVisibility(View.GONE);
 			mStatusImageView.setImageResource(R.drawable.denied);
 			mStatusImageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
@@ -241,7 +239,7 @@ public class DoorHandlerFragment extends DialogFragment implements SensorEventLi
 		}
 	}
 
-	public void readData(MifareUltralight ultralight) throws IOException {
+	private void readData(MifareUltralight ultralight) throws IOException {
 		//Read hotel
 		byte[] payload = ultralight.readPages(22);//10
 		char[] chars = Hex.encodeHex(payload);

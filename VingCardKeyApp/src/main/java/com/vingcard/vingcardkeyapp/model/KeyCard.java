@@ -25,8 +25,8 @@ public class KeyCard implements Parcelable{
 	@SerializedName("KeyData")
 	public byte[] key;
 	
-	@SerializedName("Label")
-	public String label;
+	@SerializedName("RoomNumber")
+	public String roomNumber;
 	
 	@SerializedName("ValidFrom")
 	public DateTime validFrom;
@@ -86,8 +86,8 @@ public class KeyCard implements Parcelable{
 		if (key != null) {
 			values.put(KeyCardDB.KEYCARD_KEY, key);
 		}
-		if (label != null) {
-			values.put(KeyCardDB.KEYCARD_LABEL, label);
+		if (roomNumber != null) {
+			values.put(KeyCardDB.KEYCARD_LABEL, roomNumber);
 		}
 		if(validFrom != null){
 			values.put(KeyCardDB.KEYCARD_VALID_FROM, validFrom.getMillis());	    	
@@ -121,7 +121,7 @@ public class KeyCard implements Parcelable{
 		dest.writeString(roomId);
 		dest.writeInt(key == null ? -1 : key.length);
 		dest.writeByteArray(key);
-		dest.writeString(label);
+		dest.writeString(roomNumber);
 		dest.writeLong(validFrom.getMillis());
 		dest.writeLong(validTo.getMillis());	
 		dest.writeValue(revoked);
@@ -137,11 +137,11 @@ public class KeyCard implements Parcelable{
 			int arraySize = in.readInt();
 			kc.key = new byte[arraySize == -1 ? 0 : arraySize];
 			in.readByteArray(kc.key);
-			kc.label = in.readString();
+			kc.roomNumber = in.readString();
 			kc.validFrom = new DateTime(in.readLong());
 			kc.validTo = new DateTime(in.readLong());
 			kc.revoked = (Boolean) in.readValue(null);
-            kc.hotel = (Hotel) in.readParcelable(Hotel.class.getClassLoader());
+            kc.hotel = in.readParcelable(Hotel.class.getClassLoader());
             return kc;
 		}
 

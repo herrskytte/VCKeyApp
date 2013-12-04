@@ -2,7 +2,6 @@ package com.vingcard.vingcardkeyapp.ui;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
@@ -12,7 +11,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.ViewFlipper;
 import com.squareup.picasso.Picasso;
 import com.vingcard.vingcardkeyapp.R;
 import com.vingcard.vingcardkeyapp.model.KeyCard;
@@ -120,7 +122,7 @@ public class CardFragment extends Fragment {
     private void setupCardFront() {
         if(mKeyCard.hotel != null){
             mHotelNameText.setText(mKeyCard.hotel.name);
-            mRoomText.setText("Room 203");
+            mRoomText.setText(getString(R.string.card_room, mKeyCard.roomNumber));
             Picasso picasso = Picasso.with(getActivity());
             picasso.setDebugging(true);
             picasso.load(mKeyCard.hotel.logoUrl).centerInside().resizeDimen(R.dimen.card_hotel_logo_width,R.dimen.card_hotel_logo_height).into(mHotelLogoImage);

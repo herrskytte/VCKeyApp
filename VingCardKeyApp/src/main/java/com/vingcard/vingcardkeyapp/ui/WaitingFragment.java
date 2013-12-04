@@ -25,19 +25,19 @@ import com.vingcard.vingcardkeyapp.service.RestHelper;
 import com.vingcard.vingcardkeyapp.util.PreferencesUtil;
 
 public class WaitingFragment extends Fragment {
-    static final String TAG = "WaitingFragment";
+    private static final String TAG = "WaitingFragment";
 
-    CallbackReceiver mReceiver;
-    TextView mNumberTextView;
-    View mWaitView;
-    TextView mErrorTextView;
-    Button mChangeNumberButton;
-    Button mRetryButton;
+    private CallbackReceiver mReceiver;
+    private TextView mNumberTextView;
+    private View mWaitView;
+    private TextView mErrorTextView;
+    private Button mChangeNumberButton;
+    private Button mRetryButton;
 
-    User mUserData;
-    String mUserCountryCode;
+    private User mUserData;
+    private String mUserCountryCode;
 
-    AsyncTask mRegistrationTask;
+    private AsyncTask mRegistrationTask;
 
     private final static String STATUS = "status";
     private final static int STATUS_REGISTERING = 1;

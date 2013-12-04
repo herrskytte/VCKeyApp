@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.BaseColumns;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
@@ -22,7 +23,6 @@ import com.vingcard.vingcardkeyapp.gcm.GcmHelper;
 import com.vingcard.vingcardkeyapp.model.Hotel;
 import com.vingcard.vingcardkeyapp.model.KeyCard;
 import com.vingcard.vingcardkeyapp.service.EventSyncService;
-import com.vingcard.vingcardkeyapp.service.KeySyncService.KeySyncConstants;
 import com.vingcard.vingcardkeyapp.service.RestHelper;
 import com.vingcard.vingcardkeyapp.standard.MyPagerAdapter;
 import com.vingcard.vingcardkeyapp.standard.SimpleSinglePaneActivity;
@@ -30,6 +30,7 @@ import com.vingcard.vingcardkeyapp.storage.StorageHelper;
 import com.vingcard.vingcardkeyapp.storage.VingCardContract;
 import com.vingcard.vingcardkeyapp.storage.VingCardContract.HotelDB;
 import com.vingcard.vingcardkeyapp.storage.VingCardContract.KeyCardDB;
+import com.vingcard.vingcardkeyapp.util.AppConstants;
 import com.vingcard.vingcardkeyapp.util.TimeLogger;
 import org.joda.time.DateTime;
 
@@ -41,6 +42,7 @@ public class CardsOverviewFragment extends Fragment implements LoaderManager.Loa
 
     private ViewPager mCardsViewPager;
 	private View mEmptyView;
+    private DialogFragment mKeyDialog;
 
 	private List<KeyCard> mCardsList = new ArrayList<KeyCard>();
 
@@ -63,7 +65,7 @@ public class CardsOverviewFragment extends Fragment implements LoaderManager.Loa
 //			long userId = PreferencesUtil.getUserId(getActivity());
 //			if(userId != -1){
 //				Intent mServiceIntent = new Intent(getActivity(), KeySyncService.class);
-//				mServiceIntent.putExtra(KeySyncConstants.DATA_USER_ID, userId);
+//				mServiceIntent.putExtra(KeySync.DATA_USER_ID, userId);
 //				getActivity().startService(mServiceIntent);
 //			}		
 			
@@ -107,19 +109,23 @@ public class CardsOverviewFragment extends Fragment implements LoaderManager.Loa
 
 	public void handleNewIntent(final Intent intent) {
 		if(intent.getData() != null){
-			showNewKeyDialog(intent);
+			showKeyDialog(intent);
 		}
 
 	}
 
-	void showNewKeyDialog(Intent newKeyIntent) {
-		NewKeyDialogFragment newKeyDialog = new NewKeyDialogFragment();
-		newKeyDialog.setArguments(SimpleSinglePaneActivity.intentToFragmentArguments(newKeyIntent));
-		newKeyDialog.show(getFragmentManager(), "fragment_new_key");
+	private void showKeyDialog(Intent keyIntent) {
+        if(mKeyDialog != null){
+            mKeyDialog.dismissAllowingStateLoss();
+        }
+
+        mKeyDialog = new KeyInfoDialogFragment();
+        mKeyDialog.setArguments(SimpleSinglePaneActivity.intentToFragmentArguments(keyIntent));
+        mKeyDialog.show(getFragmentManager(), "fragment_key_info");
 
 //		FragmentManager fm = getFragmentManager();
 //		FragmentTransaction transaction = fm.beginTransaction();
-//		transaction.add(newKeyDialog, "fragment_new_key");
+//		transaction.add(keyDialog, "fragment_new_key");
 //		transaction.commitAllowingStateLoss(); 
 	}
 	
@@ -131,22 +137,21 @@ public class CardsOverviewFragment extends Fragment implements LoaderManager.Loa
 			}
 			Loader<Cursor> loader = getActivity().getLoaderManager().getLoader(0);
 			if (loader != null) {
-				loader.forceLoad();
-			}
-		}
-	};
-	
-	// Broadcast receiver for receiving status updates from the IntentService
-	private final BroadcastReceiver mKeyReceiver = new BroadcastReceiver(){
+                loader.forceLoad();
+            }
+        }
+    };
 
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			Uri newKeyUri = KeyCardDB.buildKeyCardUri(intent.getStringExtra(KeySyncConstants.DATA_NEW_KEY));
-			Log.e(TAG, "New key intent: " + newKeyUri.toString());
-			intent.setData(newKeyUri);
-			showNewKeyDialog(intent);
-		}
-	};
+    // Broadcast receiver for receiving status updates from the IntentService
+    private final BroadcastReceiver mKeyReceiver = new BroadcastReceiver(){
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Uri keyUri = KeyCardDB.buildKeyCardUri(intent.getStringExtra(AppConstants.KeySync.DATA_KEY));
+            intent.setData(keyUri);
+            showKeyDialog(intent);
+        }
+    };
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -155,10 +160,10 @@ public class CardsOverviewFragment extends Fragment implements LoaderManager.Loa
 		getActivity().getContentResolver().registerContentObserver(
 				VingCardContract.KeyCardDB.CONTENT_URI, true, mObserver);
 		
-		// Listen for incoming broadcasts with new keys
-		IntentFilter mNewKeyIntentFilter = new IntentFilter(KeySyncConstants.BROADCAST_ACTION);
-		mNewKeyIntentFilter.addCategory(Intent.CATEGORY_DEFAULT);
-		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mKeyReceiver, mNewKeyIntentFilter);
+		// Listen for incoming broadcasts with new/updated keys
+		IntentFilter keyIntentFilter = new IntentFilter(AppConstants.KeySync.BROADCAST_ACTION);
+		keyIntentFilter.addCategory(Intent.CATEGORY_DEFAULT);
+		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mKeyReceiver, keyIntentFilter);
     }
 
 	@Override
@@ -192,7 +197,7 @@ public class CardsOverviewFragment extends Fragment implements LoaderManager.Loa
             if(!hidden){
                 KeyCard card = new KeyCard();
                 card.id = cursor.getString(KeyCardQuery.KEYCARD_ID);
-                card.label = cursor.getString(KeyCardQuery.KEYCARD_LABEL);
+                card.roomNumber = cursor.getString(KeyCardQuery.KEYCARD_LABEL);
                 card.validFrom = new DateTime(cursor.getLong(KeyCardQuery.KEYCARD_VALID_FROM));
                 card.validTo = new DateTime(cursor.getLong(KeyCardQuery.KEYCARD_VALID_TO));
                 card.revoked = cursor.getInt(KeyCardQuery.KEYCARD_REVOKED) > 0;

@@ -1,11 +1,9 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
-        Base application theme for API 14+. This theme completely replaces
-        AppBaseTheme from BOTH res/values/styles.xml and
-        res/values-v11/styles.xml on API 14+ devices.
+        Base application theme for API 14+.
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+    <style name="AppBaseTheme" parent="VC">
         <!-- API 14 theme customizations can go here. -->
     </style>
 
@@ -62,22 +60,19 @@
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:textColor">@color/text_error</item>
     </style>
-    
-    <style name="TextHeaderUnderlined">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#ffbababa</item>
-        <item name="android:textStyle">bold</item>
-        <!-- <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">4dp</item> -->
-        <item name="android:background">@drawable/accent_bottom_border</item>
+
+    <style name="TextHeaderNormal">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/text_black</item>
     </style>
-    
-    <style name="TextHeader2">
+
+    <style name="TextHeaderUnderlined">
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/vce_silver</item>
-        <item name="android:paddingTop">4dp</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">4dp</item>
         <item name="android:background">@drawable/accent_bottom_border</item>
     </style>
     

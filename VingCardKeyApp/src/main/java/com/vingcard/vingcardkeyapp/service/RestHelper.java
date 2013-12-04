@@ -10,6 +10,7 @@ import com.vingcard.vingcardkeyapp.model.KeyCard;
 import com.vingcard.vingcardkeyapp.model.User;
 import com.vingcard.vingcardkeyapp.sms.SmsHelper;
 import com.vingcard.vingcardkeyapp.storage.StorageHelper;
+import com.vingcard.vingcardkeyapp.util.AppConstants;
 import com.vingcard.vingcardkeyapp.util.PreferencesUtil;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -38,15 +39,17 @@ public class RestHelper {
 	public static final int REGISTERING = 304;
 
 	// Url to AppHarbor demo server
-	protected static final String BASE_URL = "http://vingcardportal.apphb.com/PhoneAppKeysService.svc/";
+	//private static final String BASE_URL = "http://vingcardportal.apphb.com/PhoneAppKeysService.svc/";
+    //Url to AppHarbor secure development server
+	private static final String BASE_URL = "https://vingcardportalapi.apphb.com/PhoneAppKeysService.svc/";
 
-	protected RestTemplate restTemplate;
-	protected HttpHeaders requestHeaders;
+	private RestTemplate restTemplate;
+	private HttpHeaders requestHeaders;
 
-	protected ResultReceiver callback;
-	protected int responseResult = HTTP_OK;
+	private ResultReceiver callback;
+	private int responseResult = HTTP_OK;
 
-	protected Context context;
+	private Context context;
 
 	public RestHelper(Context context) {
 
@@ -59,7 +62,7 @@ public class RestHelper {
 		restTemplate.getMessageConverters().add(new VingCardGsonConverter());
 		
 		// Add a manual logger
-		List<ClientHttpRequestInterceptor> interceptors = new ArrayList<ClientHttpRequestInterceptor>();
+		List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
 		LoggerInterceptor loggerInterceptor = new LoggerInterceptor();
 		interceptors.add(loggerInterceptor);
 		restTemplate.setInterceptors(interceptors);
@@ -72,17 +75,21 @@ public class RestHelper {
 				"application", "json")));
 		requestHeaders.set("Connection", "Close");
 
+        addBasicAuthentication("VingCard", "V1ngCard!");
 	}
 
-	protected HttpEntity<Object> getDefaultRequestEntity(){
-		return new HttpEntity<Object>(requestHeaders);
+    protected void addBasicAuthentication(String username, String password) {
+        HttpAuthentication authHeader = new HttpBasicAuthentication(username, password);
+        requestHeaders.setAuthorization(authHeader);
+    }
+
+	private HttpEntity<Object> getDefaultRequestEntity(){
+		return new HttpEntity<>(requestHeaders);
 	}
 
-	public void getKeyCards(long userId, ResultReceiver callback) {
-		this.callback = callback;
+	public void getKeyCards(long userId) {
 		new GetKeyCardsTask().execute(userId);
 	}
-
 
     private class GetKeyCardsTask extends AsyncTask<Long, Void, KeyCard[]> {
 
@@ -112,7 +119,7 @@ public class RestHelper {
 			if(keyCardList != null){
 				List<KeyCard> newCards = StorageHelper.storeKeyCards(context, keyCardList);
 				if(newCards != null && !newCards.isEmpty()){
-					CardNotificationHelper.notifyNewKey(context, newCards.get(0));
+					CardNotificationHelper.notifyKeyUpdate(context, newCards.get(0), AppConstants.KeySync.ACTION_NEW_KEY);
 				}				
 			}
 		}
@@ -125,7 +132,7 @@ public class RestHelper {
 
 		String url = BASE_URL + "status";
 
-		HttpEntity<DoorEvent> requestEntity = new HttpEntity<DoorEvent>(doorEvent, requestHeaders);
+		HttpEntity<DoorEvent> requestEntity = new HttpEntity<>(doorEvent, requestHeaders);
 		
 		try {
 			ResponseEntity<Object> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, Object.class);
@@ -164,7 +171,7 @@ public class RestHelper {
 					User postObject = new User();
 					postObject.phoneNumber = userObject.phoneNumber;
 					
-					HttpEntity<User> requestEntity = new HttpEntity<User>(postObject, requestHeaders);
+					HttpEntity<User> requestEntity = new HttpEntity<>(postObject, requestHeaders);
 					restTemplate.exchange(url, HttpMethod.POST, requestEntity, User.class);
 				}
 				
@@ -184,7 +191,7 @@ public class RestHelper {
 				//Registering user on server
 				responseResult = REGISTERING;
 				userObject.registrationCode = smsCode;
-				HttpEntity<User> requestEntity =  new HttpEntity<User>(userObject, requestHeaders);
+				HttpEntity<User> requestEntity =  new HttpEntity<>(userObject, requestHeaders);
 				ResponseEntity<User> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, User.class);
 				
 				//User registered ok!
@@ -222,7 +229,7 @@ public class RestHelper {
 	public boolean updateUser(User user){
 		String url = BASE_URL + "user/" + user.id;
 		try{
-			HttpEntity<User> requestEntity = new HttpEntity<User>(user, requestHeaders);
+			HttpEntity<User> requestEntity = new HttpEntity<>(user, requestHeaders);
 			restTemplate.exchange(url, HttpMethod.PUT, requestEntity, User.class);
 			return true;
 		} catch(Exception e){

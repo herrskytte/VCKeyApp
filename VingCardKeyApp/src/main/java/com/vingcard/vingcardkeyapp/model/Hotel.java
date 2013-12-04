@@ -1,14 +1,12 @@
 package com.vingcard.vingcardkeyapp.model;
 
-import java.util.Locale;
-
 import android.content.ContentValues;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 import com.vingcard.vingcardkeyapp.storage.VingCardContract.HotelDB;
-import org.joda.time.DateTime;
+
+import java.util.Locale;
 
 public class Hotel implements Parcelable{
 

@@ -10,7 +10,7 @@ import com.vingcard.vingcardkeyapp.R;
 
 
 /**
- * A {@link BaseActivity} that simply contains a single fragment. The intent used to invoke this
+ * An Activity that simply contains a single fragment. The intent used to invoke this
  * activity is forwarded to the fragment as arguments during fragment instantiation. Derived
  * activities should only need to implement {@link SimpleSinglePaneActivity#onCreatePane()}.
  */

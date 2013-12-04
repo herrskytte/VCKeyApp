@@ -69,9 +69,9 @@ public class AnimationFactory {
 		public float getEndDegreeForFirstView() {
 			switch(this) {
 			case LEFT_RIGHT:
-				return 90;
+				return 89;
 			case RIGHT_LEFT:
-				return -90;
+				return -89;
 			default:
 				return 0;
 			}
@@ -91,7 +91,7 @@ public class AnimationFactory {
 				return null;
 			}
 		}
-	};
+	}
 	 
 	
 	/**
@@ -104,7 +104,6 @@ public class AnimationFactory {
 	 * @param dir the flip direction
 	 * @param duration the transition duration in milliseconds
 	 * @param interpolator the interpolator to use (pass {@code null} to use the {@link AccelerateInterpolator} interpolator) 
-	 * @return
 	 */
 	public static Animation[] flipAnimation(final View fromView, final View toView, FlipDirection dir, long duration, Interpolator interpolator) {
 		Animation[] result = new Animation[2];
@@ -276,7 +275,6 @@ public class AnimationFactory {
 	 * @param duration the animation duration in milliseconds
 	 * @param delay how long to wait before starting the animation, in milliseconds
 	 * @return a fade animation
-	 * @see #fadeInAnimation(View, long)
 	 */
 	public static Animation fadeInAnimation(long duration, long delay) {  
 		
@@ -294,7 +292,6 @@ public class AnimationFactory {
 	 * @param duration the animation duration in milliseconds
 	 * @param delay how long to wait before starting the animation, in milliseconds
 	 * @return a fade animation
-	 * @see #fadeOutAnimation(View, long)
 	 */
 	public static Animation fadeOutAnimation(long duration, long delay) {   
 

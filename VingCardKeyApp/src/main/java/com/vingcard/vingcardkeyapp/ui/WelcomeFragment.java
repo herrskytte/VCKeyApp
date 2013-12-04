@@ -12,11 +12,8 @@ import android.widget.Button;
 import com.vingcard.vingcardkeyapp.R;
 
 public class WelcomeFragment extends Fragment {
-	static final String TAG = "WelcomeFragment";
 
-	Button mContinueButton;
-
-	@Override
+    @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -27,18 +24,18 @@ public class WelcomeFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_welcome, null);
-		
-		mContinueButton = (Button) root.findViewById(R.id.reg_button);
+
+        Button mContinueButton = (Button) root.findViewById(R.id.reg_button);
 		
 		mContinueButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(getActivity(), RegisterActivity.class);
-				startActivity(intent);
-				getActivity().finish();
-			}
-		});
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
 		
 		return root;
 	}

@@ -24,8 +24,6 @@ public class SmsHelper {
 
 	/**
 	 * Send event as SMS to SERVICE_NUMBER
-	 * @param context
-	 * @param event
 	 */
 	public static void sendEventSMS(Context context, final DoorEvent event)
 	{        

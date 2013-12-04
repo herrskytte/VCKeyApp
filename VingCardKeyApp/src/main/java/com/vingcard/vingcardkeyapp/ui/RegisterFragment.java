@@ -37,24 +37,22 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 public class RegisterFragment extends Fragment {
-    static final String TAG = "RegisterFragment";
+    private static final String TAG = "RegisterFragment";
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final int COUNTRY_PICKER_REQUEST = 1000;
     private static final int REGISTER_PHONE_REQUEST = 2000;
 
-    GcmHelper gcmHelper;
-    String gcmRegId;
+    private GcmHelper gcmHelper;
 
-    CallbackReceiver mReceiver;
-    Button mRegisterButton;
-    TextView mCountryTextView;
-    ImageView mCountryImageView;
-    EditText mPhoneEditText;
-    View mCountrySection;
-    TextView mErrorTextView;
+    private CallbackReceiver mReceiver;
+    private Button mRegisterButton;
+    private TextView mCountryTextView;
+    private ImageView mCountryImageView;
+    private EditText mPhoneEditText;
+    private TextView mErrorTextView;
 
-    Country mSelectedCountry;
+    private Country mSelectedCountry;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,7 +62,7 @@ public class RegisterFragment extends Fragment {
         // Check device for Play Services APK. If check succeeds, proceed with GCM registration.
         if (checkPlayServices()) {
             gcmHelper = new GcmHelper(getActivity());
-            gcmRegId = gcmHelper.getRegistrationId();
+            String gcmRegId = gcmHelper.getRegistrationId();
 
             if (gcmRegId == null) {
                 gcmHelper.registerBackground();
@@ -93,7 +91,6 @@ public class RegisterFragment extends Fragment {
         mPhoneEditText = (EditText) root.findViewById(R.id.reg_number_input);
         mErrorTextView = (TextView) root.findViewById(R.id.reg_error);
         mRegisterButton = (Button) root.findViewById(R.id.reg_button);
-        mCountrySection = root.findViewById(R.id.reg_country_section);
 
         mRegisterButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -130,7 +127,7 @@ public class RegisterFragment extends Fragment {
             }
         });
 
-        mCountrySection.setOnClickListener(new OnClickListener() {
+        mCountryTextView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 mErrorTextView.setVisibility(View.GONE);

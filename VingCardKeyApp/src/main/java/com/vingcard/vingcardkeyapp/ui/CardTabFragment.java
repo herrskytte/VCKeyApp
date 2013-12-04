@@ -1,8 +1,6 @@
 package com.vingcard.vingcardkeyapp.ui;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,11 +16,9 @@ import com.vingcard.vingcardkeyapp.R;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
-import java.util.List;
 
 public class CardTabFragment extends Fragment {
-    static final String TAG = "CardTabFragment";
+    private static final String TAG = "CardTabFragment";
 
     public static final String TYPE = "com.vingcard.vingcardkeyapp.type";
     public static final int TYPE_ADDRESS = 1;
@@ -137,7 +133,7 @@ public class CardTabFragment extends Fragment {
         return root;
     }
 
-    public void startIntentSafely(Intent i){
+    private void startIntentSafely(Intent i){
         if(getActivity().getPackageManager().resolveActivity(i, 0) != null){
             startActivity(i);
         } else{

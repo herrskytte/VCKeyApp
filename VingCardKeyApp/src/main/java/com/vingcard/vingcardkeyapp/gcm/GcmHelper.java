@@ -14,17 +14,17 @@ import com.vingcard.vingcardkeyapp.service.RestHelper;
 import com.vingcard.vingcardkeyapp.util.PreferencesUtil;
 
 public class GcmHelper {
-	static final String TAG = "GcmHelper";
+	private static final String TAG = "GcmHelper";
 	
 	private static final int MAX_ATTEMPTS = 5;
     private static final int BACKOFF_MILLI_SECONDS = 2000;
 
-    String SENDER_ID = "917619851459";
+    private static final String SENDER_ID = "917619851459";
 
-    GoogleCloudMessaging gcm;
-    Context context;
+    private GoogleCloudMessaging gcm;
+    private Context context;
 
-    String regid;
+    private String regid;
 
 	public GcmHelper(Context context) {
 		super();

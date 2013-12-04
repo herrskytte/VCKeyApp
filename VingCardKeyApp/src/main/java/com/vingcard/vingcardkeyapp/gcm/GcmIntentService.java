@@ -1,23 +1,20 @@
 package com.vingcard.vingcardkeyapp.gcm;
 
-import java.util.Random;
-
-import com.vingcard.vingcardkeyapp.service.RestHelper;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeUtils;
-
 import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
-
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.gson.Gson;
 import com.vingcard.vingcardkeyapp.model.Hotel;
 import com.vingcard.vingcardkeyapp.model.KeyCard;
 import com.vingcard.vingcardkeyapp.service.CardNotificationHelper;
+import com.vingcard.vingcardkeyapp.service.RestHelper;
 import com.vingcard.vingcardkeyapp.service.VingCardGsonConverter;
 import com.vingcard.vingcardkeyapp.storage.StorageHelper;
+import com.vingcard.vingcardkeyapp.util.AppConstants;
 import com.vingcard.vingcardkeyapp.util.DateUtil;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeUtils;
 
 /**
  * This {@code IntentService} does the actual handling of the GCM message.
@@ -27,7 +24,7 @@ import com.vingcard.vingcardkeyapp.util.DateUtil;
  * wake lock.
  */
 public class GcmIntentService extends IntentService {
-	public static final String TAG = "GcmIntentService";
+	private static final String TAG = "GcmIntentService";
 
     public GcmIntentService() {
         super("GcmIntentService");
@@ -38,6 +35,7 @@ public class GcmIntentService extends IntentService {
     	Log.e(TAG, "GCM MEssage received!");
     	
         GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
+        Gson gson = new VingCardGsonConverter().createGson();
 
         String messageType = gcm.getMessageType(intent);
         if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
@@ -59,23 +57,15 @@ public class GcmIntentService extends IntentService {
         	if (action == null) {
         		Log.e(TAG, "Message received without command action");
         	}
-        	else if(action.equals("NewKey")){
-        		Log.e(TAG, "ExtraData:" + extraData);
-        		Gson gson = new VingCardGsonConverter().createGson();
+        	else{
+        		Log.e(TAG, action + "- ExtraData:" + extraData);
         		KeyCard keyCard = gson.fromJson(extraData, KeyCard.class);
-        		
-        		//TODO TEMP if to fix revoke-calls. Not allowed yet!
-        		if(keyCard.hotelId != null){
-                    Hotel hotel = new RestHelper(this).getHotelData(keyCard.hotelId);
-                    if(hotel != null){
-                        StorageHelper.storeHotel(this, hotel);
-                    }
-        			boolean isNewCard = StorageHelper.storeKeyCard(this, keyCard);
-        			if(isNewCard){
-        				CardNotificationHelper.notifyNewKey(this, keyCard);
-        			}
-        			Log.e(TAG, "Received new key!");
-        		}
+                if(keyCard.hotel != null){
+                    StorageHelper.storeHotel(this, keyCard.hotel);
+                }
+                StorageHelper.storeKeyCard(this, keyCard);
+
+                CardNotificationHelper.notifyKeyUpdate(this, keyCard, action);
         	}
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.

@@ -4,6 +4,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.squareup.picasso/picasso/2.1.0/jar/ca274930dbe6b32e0ea3192336c5b93883192a0b/picasso-2.1.0.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/picasso-2.1.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

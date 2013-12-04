@@ -18,8 +18,7 @@ public class DateUtil {
 
 	public static String serializeDateTime(DateTime date) {
 		DateTimeFormatter fmt = ISODateTimeFormat.dateTimeNoMillis();
-		String output = date.toString(fmt);	
-		return output;
+        return date.toString(fmt);
 	}
 	
 	//Test to determine if date is printed with month first in current locale

@@ -26,10 +26,8 @@ public class StorageHelper {
 	 * Store a keycard
 	 * @param context App-context
 	 * @param kc keyCard to store
-	 * @return True if the key is new false if it was an update
 	 */
-	public static synchronized boolean storeKeyCard(Context context, KeyCard kc){
-		boolean isNewCard = false;
+	public static synchronized void storeKeyCard(Context context, KeyCard kc){
 		final ContentResolver resolver = context.getContentResolver();
 		
 		Uri kcUri = KeyCardDB.buildKeyCardUri(kc.id);
@@ -41,11 +39,8 @@ public class StorageHelper {
 		//Insert new KeyCard.
 		else{
 			resolver.insert(KeyCardDB.CONTENT_URI, kc.getContentValuesForModel());
-			isNewCard = true;
 		}
 		c.close();
-
-		return isNewCard;
 	}
 
     public static synchronized void hideKeyCard(Context context, KeyCard kc){
@@ -97,7 +92,7 @@ public class StorageHelper {
 		return newCards;
 	}
 
-	public static void storeEvent(Context context, DoorEvent event) {
+	public static synchronized void storeEvent(Context context, DoorEvent event) {
 		final ContentResolver resolver = context.getContentResolver();
 
 		ContentValues values = new ContentValues();
@@ -110,13 +105,13 @@ public class StorageHelper {
 		resolver.insert(DoorEventDB.CONTENT_URI, values);
 	}
 
-	public static boolean deleteEvent(Context context, DoorEvent doorEvent) {
+	public static synchronized boolean deleteEvent(Context context, DoorEvent doorEvent) {
 		final ContentResolver resolver = context.getContentResolver();
 		int deleted = resolver.delete(DoorEventDB.buildDoorEventUri(doorEvent.eventIndex), null, null);
 		return deleted > 0;
 	}
 
-	public static void storeCheckInEvent(Context context, DoorEvent event) {
+	public static synchronized void storeCheckInEvent(Context context, DoorEvent event) {
 		final ContentResolver resolver = context.getContentResolver();
 
 		ArrayList<ContentProviderOperation> batch = new ArrayList<ContentProviderOperation>();
@@ -148,7 +143,7 @@ public class StorageHelper {
 		}
 	}
 
-	public static void storeHotel(Context context, Hotel hotel) {
+	public static synchronized void storeHotel(Context context, Hotel hotel) {
 		final ContentResolver resolver = context.getContentResolver();
 		resolver.insert(HotelDB.CONTENT_URI, hotel.getContentValuesForModel());
 	}

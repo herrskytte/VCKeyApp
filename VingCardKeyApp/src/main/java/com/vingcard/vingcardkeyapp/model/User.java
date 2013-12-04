@@ -6,6 +6,9 @@ public class User {
 
 	@SerializedName("Id")
 	public long id;
+
+    @SerializedName("AppType")
+    public final long appType = 4000;
 	
 	@SerializedName("PhoneNumber")
 	public String phoneNumber;

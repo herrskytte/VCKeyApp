@@ -182,9 +182,10 @@ public class CountryPickerFragment extends ListFragment implements Comparator<Co
 
 	}
 
-    enum ViewType {
-        SINGLE, TOP, BOTTOM, MIDDLE
-    }
+    private static final int SINGLE = 0;
+    private static final int TOP = 1;
+    private static final int BOTTOM = 2;
+    private static final int MIDDLE = 3;
 
 	private class CountryListAdapter extends BaseAdapter {
         private Context context;
@@ -219,28 +220,28 @@ public class CountryPickerFragment extends ListFragment implements Comparator<Co
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View cellView = null;
 
-            ViewType currentType;
+            int currentType;
             if(getCount() == 1){
-                currentType = ViewType.SINGLE;
+                currentType = SINGLE;
             }else if(position == 0){
-                currentType = ViewType.TOP;
+                currentType = TOP;
             }else if(position == getCount() - 1){
-                currentType = ViewType.BOTTOM;
+                currentType = BOTTOM;
             }else{
-                currentType = ViewType.MIDDLE;
+                currentType = MIDDLE;
             }
 
             //Attempt to reuse view
 			if(convertView != null){
-                ViewType convertType;
+                int convertType;
                 if(convertView.getId() == R.id.list_item_middle){
-                    convertType = ViewType.MIDDLE;
+                    convertType = MIDDLE;
                 }else if(convertView.getId() == R.id.list_item_top){
-                    convertType = ViewType.TOP;
+                    convertType = TOP;
                 }else if(convertView.getId() == R.id.list_item_bottom){
-                    convertType = ViewType.BOTTOM;
+                    convertType = BOTTOM;
                 }else{
-                    convertType = ViewType.SINGLE;
+                    convertType = SINGLE;
                 }
                 if(convertType == currentType){
                     cellView = convertView;
@@ -248,11 +249,11 @@ public class CountryPickerFragment extends ListFragment implements Comparator<Co
             }
 
 			if (cellView == null) {
-                if(currentType == ViewType.SINGLE){
+                if(currentType == SINGLE){
                     cellView = inflater.inflate(R.layout.country_picker_row_single, null);
-                }else if(currentType == ViewType.TOP){
+                }else if(currentType == TOP){
                     cellView = inflater.inflate(R.layout.country_picker_row_top, null);
-                }else if(currentType == ViewType.BOTTOM){
+                }else if(currentType == BOTTOM){
                     cellView = inflater.inflate(R.layout.country_picker_row_bottom, null);
                 }else{
                     cellView = inflater.inflate(R.layout.country_picker_row, null);

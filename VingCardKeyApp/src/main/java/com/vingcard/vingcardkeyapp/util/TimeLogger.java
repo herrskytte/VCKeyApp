@@ -43,10 +43,10 @@ public class TimeLogger {
     private String mLabel;
 
     /** Stores the time of each split. */
-    ArrayList<Long> mSplits;
+    private ArrayList<Long> mSplits;
 
     /** Stores the labels for each split. */
-    ArrayList<String> mSplitLabels;
+    private ArrayList<String> mSplitLabels;
 
     /**
      * Create and initialize a TimingLogger object that will log using
@@ -82,7 +82,7 @@ public class TimeLogger {
      * level for that tag at creation time then the addSplit and
      * dumpToLog call will do nothing.
      */
-    public void reset() {
+    private void reset() {
         if (mSplits == null) {
             mSplits = new ArrayList<Long>();
             mSplitLabels = new ArrayList<String>();

@@ -47,13 +47,14 @@ public class FlipAnimation extends Animation {
 	/**
 	 * How much to scale up/down. The default scale of 75% of full size seems optimal based on testing. Feel free to experiment away, however.
 	 */ 
-	public static final float SCALE_DEFAULT = 0.75f;
-	
+	public static final float SCALE_DEFAULT = 0.6f;
+//	public static final float SCALE_DEFAULT = 0.75f;
+
 	private float scale;
 
 	/**
 	 * Constructs a new {@code FlipAnimation} object.Two {@code FlipAnimation} objects are needed for a complete transition b/n two views. 
-	 * 
+	 *
 	 * @param fromDegrees the start angle in degrees for a rotation along the y-axis, i.e. in-and-out of the screen, i.e. 3D flip. This should really be multiple of 90 degrees.
 	 * @param toDegrees the end angle in degrees for a rotation along the y-axis, i.e. in-and-out of the screen, i.e. 3D flip. This should really be multiple of 90 degrees.
 	 * @param centerX the x-axis value of the center of rotation
@@ -66,7 +67,7 @@ public class FlipAnimation extends Animation {
 		mToDegrees = toDegrees;
 		mCenterX = centerX;
 		mCenterY = centerY;
-		this.scale = (scale<=0||scale>=1)?SCALE_DEFAULT:scale;
+		this.scale = (scale <=0||scale >=1)?SCALE_DEFAULT: scale;
 		this.scaleType = scaleType==null?ScaleUpDownEnum.SCALE_CYCLE:scaleType;
 	}
 

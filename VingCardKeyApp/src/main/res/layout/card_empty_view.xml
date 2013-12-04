@@ -11,7 +11,8 @@
         android:padding="@dimen/default_margin"
         android:background="@drawable/card_bg"
         android:visibility="gone"
-        tools:visibility="visible">
+        tools:visibility="visible"
+        tools:ignore="Overdraw">
     <ImageView
             android:id="@+id/cards_empty_logo"
             android:layout_width="@dimen/card_logo_width"
