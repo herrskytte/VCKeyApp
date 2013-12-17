@@ -33,6 +33,7 @@ public class PreferencesUtil {
 			editPrefs.putLong(PREF_ID, userData.id);
 			editPrefs.putString(PREF_MSISDN, userData.phoneNumber);
 			editPrefs.putString(PREF_SMS_CODE, userData.registrationCode);
+			editPrefs.putString(PREF_GCM_REG, userData.registrationId);
 			editPrefs.commit();
 		}		
 	}

@@ -168,10 +168,7 @@ public class RestHelper {
 				responseResult = SMS_REQUESTING;
 				String smsCode = getSmsCode();
 				if(smsCode == null){
-					User postObject = new User();
-					postObject.phoneNumber = userObject.phoneNumber;
-					
-					HttpEntity<User> requestEntity = new HttpEntity<>(postObject, requestHeaders);
+					HttpEntity<User> requestEntity = new HttpEntity<>(userObject, requestHeaders);
 					restTemplate.exchange(url, HttpMethod.POST, requestEntity, User.class);
 				}
 				
@@ -209,8 +206,7 @@ public class RestHelper {
 		}
 
 		private String getSmsCode() {
-			String smsCode;
-			smsCode = PreferencesUtil.getSmsCode(context);
+			String smsCode = PreferencesUtil.getSmsCode(context);
 			if(smsCode == null){
 				smsCode = SmsHelper.checkInboxForCode(context);
 			}

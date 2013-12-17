@@ -99,6 +99,15 @@ public class RegisterFragment extends Fragment {
                         .getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
 
+                //Check if registration succeded in background
+                final User u = PreferencesUtil.getUserData(getActivity());
+                if(u.id > 0){
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                    return;
+                }
+
                 //Validate input
                 if(mSelectedCountry == null || TextUtils.isEmpty(mPhoneEditText.getText())){
                     mErrorTextView.setText(R.string.error_phone_input);
@@ -116,7 +125,6 @@ public class RegisterFragment extends Fragment {
                 }
 
                 //Store data in preferences
-                final User u = new User();
                 u.registrationId = gcmHelper.getRegistrationId();
                 u.phoneNumber = "+" + mSelectedCountry.getPhoneCode() + mPhoneEditText.getText();
                 PreferencesUtil.setUserData(getActivity(), u);

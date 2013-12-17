@@ -155,6 +155,9 @@ public class WaitingFragment extends Fragment {
 
         @Override
         protected void onReceiveResult (int resultCode, Bundle resultData) {
+            if(getActivity() == null){
+                return;
+            }
             switch (resultCode) {
                 case FormatNumberTask.NUMBER_FORMATTED:
                     mFormattedNumber = resultData.getString(FormatNumberTask.EXTRA_NUMBER);

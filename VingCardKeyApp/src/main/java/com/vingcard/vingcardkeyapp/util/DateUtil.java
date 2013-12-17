@@ -41,7 +41,7 @@ public class DateUtil {
 	public static String getFormattedDateLong(LocalDate date) {
 		DateTimeFormatter fmt = DateTimeFormat.forPattern("EEE dd. MMMM").withLocale(Locale.getDefault());
 		String formatted = date.toString(fmt);
-		return new String(formatted.substring(0,1).toUpperCase(Locale.getDefault()) + formatted.substring(1));
+		return formatted.substring(0, 1).toUpperCase(Locale.getDefault()) + formatted.substring(1);
 	}
 	
 	public static String getFormattedTime(LocalTime time) {

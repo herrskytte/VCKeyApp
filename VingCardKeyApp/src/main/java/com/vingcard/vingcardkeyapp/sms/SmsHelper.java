@@ -70,33 +70,25 @@ public class SmsHelper {
 
 	public static String checkInboxForCode(Context context){
 		String smsCode = null;
-		final Uri smsUriInbox = Uri.parse("content://sms/inbox"); 
-		final Uri smsUri = Uri.parse("content://sms");  
+		final Uri smsUriInbox = Uri.parse("content://sms/inbox");
 		Cursor cur = null;
 		try {  
 			//String[] projection = new String[] { "_id", "address", "person", "body", "date", "type" };  
-			String[] projection = new String[] {"body", "thread_id"};  
+			String[] projection = new String[] {"body"};
 			String where = "address=? OR address=?";
+            String orderBy = "date DESC";
 			String[] whereParams = new String[]{SENDER_DEFAULT, SENDER_US};
-			cur = context.getContentResolver().query(smsUriInbox, projection, where, whereParams, null);
-			if (cur.moveToFirst()) {   
-				int indexBody = cur.getColumnIndex("body");  
-				String body = cur.getString(indexBody);
-				int indexThread = cur.getColumnIndex("thread_id");  
-				long threadId = cur.getLong(indexThread);
+			cur = context.getContentResolver().query(smsUriInbox, projection, where, whereParams, orderBy);
+			if (cur.moveToFirst()) {
+				String body = cur.getString(0);
 				
 				//Assume last word is the code
 				if(body != null){
 					String[] bodyWords = body.split(" ");
 					smsCode = bodyWords[bodyWords.length - 1];
 				}
-				where = "thread_id=?";
-				whereParams = new String[]{String.valueOf(threadId)};
-				int delCount = context.getContentResolver().delete(smsUri, where, whereParams);
-				Log.e(TAG, "Deleted: " + delCount);  
-			} 
-			 
-		} catch (Exception ex) {  
+			}
+		} catch (Exception ex) {
 			Log.e(TAG, "Exception " + ex.getMessage());  
 		} finally{
 			if (cur != null && !cur.isClosed()) {  
