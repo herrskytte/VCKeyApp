@@ -4,6 +4,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/com.googlecode.libphonenumber/libphonenumber/5.8/jar/20dbdcb6cfd201af345c1ba9fc2a164a4d532c79/libphonenumber-5.8.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/libphonenumber-5.8-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

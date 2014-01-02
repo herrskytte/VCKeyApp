@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/newkeydialog_width_land"
-    android:layout_height="@dimen/newkeydialog_height_land"
-    android:gravity="center_vertical">
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="@color/vce_dark_grey">
+
+    <TextView
+            android:id="@+id/keydialog_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextHeaderUnderlined"
+            android:layout_marginLeft="@dimen/small_margin"
+            android:layout_marginRight="@dimen/small_margin"
+            tools:text="A new hotel key has arrived"/>
 
     <include 
         android:id="@+id/keydialog_card"
@@ -11,6 +22,7 @@
     	android:layout_height="@dimen/card_small_height"  
     	android:layout_margin="@dimen/small_margin"  	
         android:layout_alignParentLeft="true"
+        android:layout_below="@id/keydialog_header"
         android:layout_centerVertical="true" />
     
     <RelativeLayout
@@ -19,6 +31,7 @@
         android:layout_height="@dimen/anim_height"
         android:layout_margin="@dimen/small_margin" 
         android:layout_toRightOf="@id/keydialog_card"
+        android:layout_below="@id/keydialog_header"
         android:layout_centerVertical="true" >
 
         <ImageView

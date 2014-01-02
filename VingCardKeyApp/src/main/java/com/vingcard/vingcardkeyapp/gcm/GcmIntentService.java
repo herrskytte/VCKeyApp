@@ -38,35 +38,36 @@ public class GcmIntentService extends IntentService {
         Gson gson = new VingCardGsonConverter().createGson();
 
         String messageType = gcm.getMessageType(intent);
-        if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
-        	Log.e(TAG, "Send error");
-        } 
-        else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
-        	Log.e(TAG, "Deleted messages on server");
-        } 
-        else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-        	String action = intent.getStringExtra("action");
-        	String extraData = intent.getStringExtra("extraData");
-        	String sentTime = intent.getStringExtra("sentTime");
-        	if(sentTime != null){
-        		DateTime sentDateTime = DateUtil.deserializeDateTime(sentTime);
-        		int timePassed = (int)(DateTimeUtils.currentTimeMillis() - sentDateTime.getMillis()) / 1000;
-        		Log.e(TAG, "Message received. Send time (s): " + timePassed);
-        	}
-        	
-        	if (action == null) {
-        		Log.e(TAG, "Message received without command action");
-        	}
-        	else{
-        		Log.e(TAG, action + "- ExtraData:" + extraData);
-        		KeyCard keyCard = gson.fromJson(extraData, KeyCard.class);
-                if(keyCard.hotel != null){
-                    StorageHelper.storeHotel(this, keyCard.hotel);
+        switch (messageType) {
+            case GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR:
+                Log.e(TAG, "Send error");
+                break;
+            case GoogleCloudMessaging.MESSAGE_TYPE_DELETED:
+                Log.e(TAG, "Deleted messages on server");
+                break;
+            case GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE:
+                String action = intent.getStringExtra("action");
+                String extraData = intent.getStringExtra("extraData");
+                String sentTime = intent.getStringExtra("sentTime");
+                if (sentTime != null) {
+                    DateTime sentDateTime = DateUtil.deserializeDateTime(sentTime);
+                    int timePassed = (int) (DateTimeUtils.currentTimeMillis() - sentDateTime.getMillis()) / 1000;
+                    Log.e(TAG, "Message received. Send time (s): " + timePassed);
                 }
-                StorageHelper.storeKeyCard(this, keyCard);
 
-                CardNotificationHelper.notifyKeyUpdate(this, keyCard, action);
-        	}
+                if (action == null) {
+                    Log.e(TAG, "Message received without command action");
+                } else {
+                    Log.e(TAG, action + "- ExtraData:" + extraData);
+                    KeyCard keyCard = gson.fromJson(extraData, KeyCard.class);
+                    if (keyCard.hotel != null) {
+                        StorageHelper.storeHotel(this, keyCard.hotel);
+                    }
+                    StorageHelper.storeKeyCard(this, keyCard);
+
+                    CardNotificationHelper.notifyKeyUpdate(this, keyCard, action);
+                }
+                break;
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.
         GcmBroadcastReceiver.completeWakefulIntent(intent);

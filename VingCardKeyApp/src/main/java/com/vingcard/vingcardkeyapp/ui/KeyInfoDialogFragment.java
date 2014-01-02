@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.vingcard.vingcardkeyapp.R;
+import com.vingcard.vingcardkeyapp.model.Hotel;
 import com.vingcard.vingcardkeyapp.standard.MyLinearLayout;
 import com.vingcard.vingcardkeyapp.standard.MyPagerAdapter;
 import com.vingcard.vingcardkeyapp.storage.VingCardContract.KeyCardDB;
@@ -30,6 +31,8 @@ public class KeyInfoDialogFragment extends DialogFragment{
 	private TextView mRoomNumberText;
     private ImageView mLogoImageView;
     private String mAction;
+
+    private static final float mScale = MyPagerAdapter.SMALL_SCALE;
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -50,20 +53,26 @@ public class KeyInfoDialogFragment extends DialogFragment{
                 //start the animation
                 phoneSet.start();
 
-                builder.setTitle(R.string.key_notification_new);
+                ((TextView) view.findViewById(R.id.keydialog_header)).setText(R.string.key_notification_new);
+
+                //builder.setTitle(R.string.key_notification_new);
                 break;
             case AppConstants.KeySync.ACTION_UPDATED_KEY:
                 view = inflater.inflate(R.layout.dialog_updated_key, null);
-                builder.setTitle(R.string.key_notification_update);
+                ((TextView) view.findViewById(R.id.keydialog_header)).setText(R.string.key_notification_update);
+
+                //builder.setTitle(R.string.key_notification_update);
                 break;
             case AppConstants.KeySync.ACTION_REVOKED_KEY:
                 view = inflater.inflate(R.layout.dialog_updated_key, null);
-                builder.setTitle(R.string.key_notification_revoke);
+                ((TextView) view.findViewById(R.id.keydialog_header)).setText(R.string.key_notification_revoke);
+
+                //builder.setTitle(R.string.key_notification_revoke);
                 break;
         }
 
         MyLinearLayout mCardLayout = (MyLinearLayout) view.findViewById(R.id.keydialog_card);
-		mCardLayout.setScaleBoth(MyPagerAdapter.SMALL_SCALE, false);
+		mCardLayout.setScaleBoth(mScale, false);
 		
 		mHotelNameText = (TextView) view.findViewById(R.id.card_hotel_name);
 		mRoomNumberText = (TextView) view.findViewById(R.id.card_room);
@@ -102,9 +111,14 @@ public class KeyInfoDialogFragment extends DialogFragment{
             Cursor c2 = getActivity().getContentResolver().query(hotelUri, HotelQuery.PROJECTION, null, null, null);
             if(c2.moveToFirst()){
                 mHotelNameText.setText(c2.getString(HotelQuery.HOTEL_NAME));
-                String logoUrl = c2.getString(HotelQuery.HOTEL_LOGO_URL);
-                if(!TextUtils.isEmpty(logoUrl)){
-                    Picasso.with(getActivity()).load(logoUrl).into(mLogoImageView);
+                String fullLogoUrl = Hotel.CreateFullLogoUrl(c2.getString(HotelQuery.HOTEL_LOGO_URL));
+                if(fullLogoUrl != null){
+                    Picasso picasso = Picasso.with(getActivity());
+                    picasso.setDebugging(true);
+                    picasso.load(fullLogoUrl)
+                            .centerInside()
+                            .fit()
+                            .into(mLogoImageView);
                 }
             }
             c2.close();

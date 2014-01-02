@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">VingCard</string>
+    <string name="app_name">VingCard Hotel Keys</string>
     <string name="action_search">Search</string>
 
     <!-- Welcome screen -->
@@ -42,6 +42,7 @@
     <string name="card_valid_waiting">Valid in %1$d days</string>
     <string name="card_valid">Valid</string>
     <string name="card_valid_expired">Key expired</string>
+    <string name="card_valid_revoked">Key invalidated</string>
     <string name="card_checkin">Check-in</string>
     <string name="card_checkout">Check-out</string>
     <string name="card_address_title">Hotel address</string>
@@ -55,10 +56,11 @@
     <string name="card_phone_button">Call hotel</string>
 
     <!-- Key Dialog -->
-    <string name="key_dialog_title">New key ready</string>
+    <!--<string name="key_dialog_title">New key ready</string>-->
+    <string name="key_notification_header">VingCard Hotel Keys</string>
     <string name="key_notification_new">A new hotel key has arrived</string>
     <string name="key_notification_update">Your hotel key has been updated</string>
-    <string name="key_notification_revoke">Your hotel key has been revoked</string>
+    <string name="key_notification_revoke">Your hotel key has been invalidated</string>
 
     <!-- Error messages -->
     <string name="error_register">Unable to register phone. Make sure you have an internet connection.</string>

@@ -2,6 +2,16 @@ package com.vingcard.vingcardkeyapp.util;
 
 public class AppConstants {
 
+    public static final class Uris {
+
+        public static final String BASE_URI_LOGOS = "https://vingcardportalweb.apphb.com";
+
+        // Url to AppHarbor demo server
+        //public static final String BASE_URL = "http://vingcardportal.apphb.com/PhoneAppKeysService.svc/";
+        //Url to AppHarbor secure development server
+        public static final String BASE_URI_REST = "https://vingcardportalapi.apphb.com/PhoneAppKeysService.svc/";
+    }
+
     public static final class KeySync {
 
         public static final String BROADCAST_ACTION =

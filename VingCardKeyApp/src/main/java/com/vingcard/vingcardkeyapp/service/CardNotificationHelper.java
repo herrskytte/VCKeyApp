@@ -55,18 +55,19 @@ public class CardNotificationHelper {
 		Uri keyCardUri = KeyCardDB.buildKeyCardUri(keyCard.id);
 
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
-        if(action.equals(AppConstants.KeySync.ACTION_NEW_KEY)){
-            mBuilder.setContentTitle(context.getText(R.string.key_notification_new));
-        }
-        else if(action.equals(AppConstants.KeySync.ACTION_UPDATED_KEY)){
-            mBuilder.setContentTitle(context.getText(R.string.key_notification_update));
-        }
-        else if(action.equals(AppConstants.KeySync.ACTION_REVOKED_KEY)){
-            mBuilder.setContentTitle(context.getText(R.string.key_notification_revoke));
+        switch (action) {
+            case AppConstants.KeySync.ACTION_NEW_KEY:
+                mBuilder.setContentText(context.getText(R.string.key_notification_new));
+                break;
+            case AppConstants.KeySync.ACTION_UPDATED_KEY:
+                mBuilder.setContentText(context.getText(R.string.key_notification_update));
+                break;
+            case AppConstants.KeySync.ACTION_REVOKED_KEY:
+                mBuilder.setContentText(context.getText(R.string.key_notification_revoke));
+                break;
         }
         mBuilder.setSmallIcon(R.drawable.ic_notification);
-        mBuilder.setContentTitle(context.getText(R.string.key_notification_new));
-		mBuilder.setContentText(keyCard.roomNumber);
+        mBuilder.setContentTitle(context.getText(R.string.key_notification_header));
 		mBuilder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
 		Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_notification);
 		mBuilder.setLargeIcon(bm);  

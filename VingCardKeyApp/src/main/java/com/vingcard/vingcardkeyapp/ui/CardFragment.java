@@ -2,9 +2,11 @@ package com.vingcard.vingcardkeyapp.ui;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,8 +17,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.vingcard.vingcardkeyapp.R;
+import com.vingcard.vingcardkeyapp.model.Hotel;
 import com.vingcard.vingcardkeyapp.model.KeyCard;
 import com.vingcard.vingcardkeyapp.standard.AnimationFactory;
 import com.vingcard.vingcardkeyapp.standard.AnimationFactory.FlipDirection;
@@ -123,9 +127,41 @@ public class CardFragment extends Fragment {
         if(mKeyCard.hotel != null){
             mHotelNameText.setText(mKeyCard.hotel.name);
             mRoomText.setText(getString(R.string.card_room, mKeyCard.roomNumber));
-            Picasso picasso = Picasso.with(getActivity());
-            picasso.setDebugging(true);
-            picasso.load(mKeyCard.hotel.logoUrl).centerInside().resizeDimen(R.dimen.card_hotel_logo_width,R.dimen.card_hotel_logo_height).into(mHotelLogoImage);
+            String fullLogoUrl = Hotel.CreateFullLogoUrl(mKeyCard.hotel.logoUrl);
+            if(fullLogoUrl != null){
+//                Picasso picasso = Picasso.with(getActivity());
+//                picasso.setDebugging(true);
+//                picasso.load(fullLogoUrl)
+//                        .centerInside()
+//                        .error(R.drawable.failed)
+//                        .resizeDimen(R.dimen.card_hotel_logo_width,R.dimen.card_hotel_logo_height)
+//                        .into(mHotelLogoImage, new Callback() {
+//                            @Override
+//                            public void onSuccess() {
+//
+//                            }
+//
+//                            @Override
+//                            public void onError() {
+//                                Log.e("Picasso Error", "Errored:" + e.getMessage(), e);
+//                            }
+//                         });
+                Picasso.Builder builder = new Picasso.Builder(getActivity().getApplicationContext());
+                builder.listener(new Picasso.Listener() {
+                    @Override
+                    public void onImageLoadFailed(Picasso picasso, Uri uri, Exception e) {
+                        Log.e("Picasso Error", "Errored:" + e.getMessage(), e);
+
+                    }
+                });
+                Picasso pic = builder.build();
+                pic.setDebugging(true);
+                pic.load(fullLogoUrl)
+                        .centerInside()
+                        .fit()
+                        .error(R.drawable.failed)
+                        .into(mHotelLogoImage);
+            }
         }
 
         if(mKeyCard.isActive()){
@@ -145,6 +181,10 @@ public class CardFragment extends Fragment {
             }
             else if(mKeyCard.isExpired()){
                 mStatusText.setText(R.string.card_valid_expired);
+                mRemoveButton.setVisibility(View.VISIBLE);
+            }
+            else if(mKeyCard.revoked){
+                mStatusText.setText(R.string.card_valid_revoked);
                 mRemoveButton.setVisibility(View.VISIBLE);
             }
         }
@@ -171,6 +211,7 @@ public class CardFragment extends Fragment {
             Bundle bundleWeb = new Bundle();
             bundleWeb.putInt(CardTabFragment.TYPE, CardTabFragment.TYPE_WEB);
             bundleWeb.putString(CardTabFragment.DATA, mKeyCard.hotel.website);
+            bundleWeb.putString(CardTabFragment.DATA2, mKeyCard.personalUrl);
             mTabHost.addTab(mTabHost.newTabSpec("tabWeb").setIndicator(customTabView(R.drawable.ic_action_globe_black)), CardTabFragment.class, bundleWeb);
 
             Bundle bundleMail = new Bundle();

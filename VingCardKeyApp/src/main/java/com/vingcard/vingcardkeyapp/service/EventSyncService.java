@@ -34,7 +34,7 @@ public class EventSyncService extends IntentService {
 		
 		setNetworkMonitoring(false);
 		
-		List<DoorEvent> smsQueue = new ArrayList<DoorEvent>();
+		List<DoorEvent> smsQueue = new ArrayList<>();
 		
 		long backoff = BACKOFF_MILLI_SECONDS;
 		boolean success = true;

@@ -36,15 +36,17 @@ public class KeyCard implements Parcelable{
 	
 	@SerializedName("Revoked")
 	public Boolean revoked;
+
+    @SerializedName("PersonalUrl")
+    public String personalUrl;
 	
 	@SerializedName("Hotel")
 	public Hotel hotel;
 	
 	public transient Boolean checkedIn;
 	public transient Boolean hidden;
-	
 
-	/**
+    /**
 	 * @return true if the card is not revoked and is valid at the current time
 	 */
 	public boolean isActive(){
@@ -64,12 +66,11 @@ public class KeyCard implements Parcelable{
 	}
 	
 	/**
-	 * @return true if the card is revoked or is valid at the current time or will be valid later
+	 * @return true if the card is is not valid at the current time or will be valid later
 	 */
 	public boolean isExpired(){
-        return revoked ||
-                validTo == null ||
-                validTo.plusDays(1).toDateMidnight().isBeforeNow();
+        return validTo == null ||
+               validTo.plusDays(1).toDateMidnight().isBeforeNow();
 	}
 
 	public ContentValues getContentValuesForModel(){
@@ -98,6 +99,9 @@ public class KeyCard implements Parcelable{
 		if(revoked != null){
 			values.put(KeyCardDB.KEYCARD_REVOKED, revoked);	    	
 		}
+        if(personalUrl != null){
+            values.put(KeyCardDB.KEYCARD_PERSONAL_URL, personalUrl);
+        }
 		if(checkedIn != null){
 			values.put(KeyCardDB.KEYCARD_CHECKED_IN, checkedIn);			
 		}
@@ -119,8 +123,7 @@ public class KeyCard implements Parcelable{
 		dest.writeString(id);
 		dest.writeString(hotelId);
 		dest.writeString(roomId);
-		dest.writeInt(key == null ? -1 : key.length);
-		dest.writeByteArray(key);
+		dest.writeByteArray(key == null ? new byte[0] : key);
 		dest.writeString(roomNumber);
 		dest.writeLong(validFrom.getMillis());
 		dest.writeLong(validTo.getMillis());	
@@ -134,9 +137,10 @@ public class KeyCard implements Parcelable{
 			kc.id = in.readString();
 			kc.hotelId = in.readString();
 			kc.roomId = in.readString();
-			int arraySize = in.readInt();
-			kc.key = new byte[arraySize == -1 ? 0 : arraySize];
-			in.readByteArray(kc.key);
+            kc.key = in.createByteArray();
+			if(kc.key.length == 0){
+                kc.key = null;
+            }
 			kc.roomNumber = in.readString();
 			kc.validFrom = new DateTime(in.readLong());
 			kc.validTo = new DateTime(in.readLong());

@@ -1,1 +1,1 @@
-include ':VingCardKeyApp'
+include ':VingCardKeyApp', ':NFCTestApp'

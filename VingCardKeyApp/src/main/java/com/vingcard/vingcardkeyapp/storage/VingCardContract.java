@@ -33,6 +33,7 @@ public class VingCardContract {
     	String KEYCARD_VALID_FROM = "valid_from";
     	String KEYCARD_VALID_TO = "valid_to";
     	String KEYCARD_REVOKED = "revoked";
+    	String KEYCARD_PERSONAL_URL = "personal_url";
     	String KEYCARD_CHECKED_IN = "checked_in";
     	String KEYCARD_HIDDEN = "hidden";
     }

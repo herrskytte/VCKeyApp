@@ -47,7 +47,8 @@ public class VingCardDatabase extends SQLiteOpenHelper {
 				+ KeyCardColumns.KEYCARD_VALID_FROM + " NUMERIC," 
 				+ KeyCardColumns.KEYCARD_VALID_TO + " NUMERIC," 
 				+ KeyCardColumns.KEYCARD_REVOKED + " INTEGER DEFAULT 0," 
-				+ KeyCardColumns.KEYCARD_CHECKED_IN + " INTEGER DEFAULT 0," 
+				+ KeyCardColumns.KEYCARD_PERSONAL_URL + " TEXT,"
+				+ KeyCardColumns.KEYCARD_CHECKED_IN + " INTEGER DEFAULT 0,"
 				+ KeyCardColumns.KEYCARD_HIDDEN + " INTEGER DEFAULT 0," 
 				+ "UNIQUE (" + KeyCardColumns.KEYCARD_ID + "))");
 

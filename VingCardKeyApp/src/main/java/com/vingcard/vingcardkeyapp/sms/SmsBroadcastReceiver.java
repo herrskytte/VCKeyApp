@@ -15,14 +15,16 @@ public class SmsBroadcastReceiver extends BroadcastReceiver{
     public void onReceive(Context context, Intent intent){
     	Bundle pudsBundle = intent.getExtras();
         Object[] pdus = (Object[]) pudsBundle.get("pdus");
-        SmsMessage message =SmsMessage.createFromPdu((byte[]) pdus[0]);    
+        SmsMessage message = SmsMessage.createFromPdu((byte[]) pdus[0]);
     	if(message.getOriginatingAddress().equalsIgnoreCase(SmsHelper.SENDER_DEFAULT) ||
     			message.getOriginatingAddress().equalsIgnoreCase(SmsHelper.SENDER_US)	){
     		Log.e(TAG, "DoAbort - SMStext received: " + message.getMessageBody());
     		String[] bodyWords = message.getMessageBody().split(" ");
-    		String smsCode = bodyWords[bodyWords.length - 1];
-    		PreferencesUtil.setSmsCode(context, smsCode);
-    		this.abortBroadcast();
+            String lastWord = bodyWords[bodyWords.length - 1];
+            if(lastWord.length() == 32){
+                PreferencesUtil.setSmsCode(context, lastWord);
+                this.abortBroadcast();
+            }
     	}
     }
 }

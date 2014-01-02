@@ -18,7 +18,8 @@ import com.vingcard.vingcardkeyapp.storage.StorageHelper;
 public class SmsHelper {
 	private static final String TAG = "SmsHelper";
 
-	public static final String SERVICE_NUMBER = "+447860034911";
+	public static final String SERVICE_NUMBER = "+47123456789";
+//	public static final String SERVICE_NUMBER = "+447860034911";
 	public static final String SENDER_DEFAULT = "VingCard";
 	public static final String SENDER_US = "+13025179780";
 
@@ -79,13 +80,14 @@ public class SmsHelper {
             String orderBy = "date DESC";
 			String[] whereParams = new String[]{SENDER_DEFAULT, SENDER_US};
 			cur = context.getContentResolver().query(smsUriInbox, projection, where, whereParams, orderBy);
-			if (cur.moveToFirst()) {
+			while (cur.moveToNext() && smsCode == null) {
 				String body = cur.getString(0);
 				
 				//Assume last word is the code
 				if(body != null){
 					String[] bodyWords = body.split(" ");
-					smsCode = bodyWords[bodyWords.length - 1];
+                    String lastWord = bodyWords[bodyWords.length - 1];
+					smsCode = lastWord.length() == 32 ? lastWord : null;
 				}
 			}
 		} catch (Exception ex) {

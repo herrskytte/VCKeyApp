@@ -22,7 +22,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 
 public class RestHelper {
@@ -37,11 +36,6 @@ public class RestHelper {
 	public static final int SMS_REQUESTING = 300;
 	public static final int SMS_RECEIVING = 302;
 	public static final int REGISTERING = 304;
-
-	// Url to AppHarbor demo server
-	//private static final String BASE_URL = "http://vingcardportal.apphb.com/PhoneAppKeysService.svc/";
-    //Url to AppHarbor secure development server
-	private static final String BASE_URL = "https://vingcardportalapi.apphb.com/PhoneAppKeysService.svc/";
 
 	private RestTemplate restTemplate;
 	private HttpHeaders requestHeaders;
@@ -98,7 +92,7 @@ public class RestHelper {
 			try {
 				long userId = params[0];
 
-				String url = BASE_URL + "user/" + userId + "/keys";
+				String url = AppConstants.Uris.BASE_URI_REST + "user/" + userId + "/keys";
 				
 				ResponseEntity<KeyCard[]> responseEntity = restTemplate
 						.exchange(new URI(url), HttpMethod.GET, getDefaultRequestEntity(), KeyCard[].class);
@@ -130,7 +124,7 @@ public class RestHelper {
 	 */
 	public boolean sendDoorEvent(DoorEvent doorEvent) {
 
-		String url = BASE_URL + "status";
+		String url = AppConstants.Uris.BASE_URI_REST + "status";
 
 		HttpEntity<DoorEvent> requestEntity = new HttpEntity<>(doorEvent, requestHeaders);
 		
@@ -162,7 +156,7 @@ public class RestHelper {
 		protected User doInBackground(User... params) {
 			try {
 				User userObject = params[0];
-				String url = BASE_URL + "user";
+				String url = AppConstants.Uris.BASE_URI_REST + "user";
 
 				//Requesting SMS from server
 				responseResult = SMS_REQUESTING;
@@ -223,7 +217,7 @@ public class RestHelper {
 	}
 	
 	public boolean updateUser(User user){
-		String url = BASE_URL + "user/" + user.id;
+		String url = AppConstants.Uris.BASE_URI_REST + "user/" + user.id;
 		try{
 			HttpEntity<User> requestEntity = new HttpEntity<>(user, requestHeaders);
 			restTemplate.exchange(url, HttpMethod.PUT, requestEntity, User.class);
@@ -235,39 +229,14 @@ public class RestHelper {
 	}
 
     public Hotel getHotelData(String hotelId) {
-        String url = BASE_URL + "hotel/" + hotelId;
-//        try{
-//            ResponseEntity<Hotel> responseEntity = restTemplate
-//                    .exchange(new URI(url), HttpMethod.GET, getDefaultRequestEntity(), Hotel.class);
-//            return responseEntity.getBody();
-//        } catch(Exception e){
-//            Log.e(TAG, "Error getting hotel: " + e.getMessage());
-//            return null;
-//        }
-        return createDemoHotel(hotelId);
-    }
-
-    private Hotel createDemoHotel(String hotelId){
-        Hotel h = new Hotel();
-        h.hotelId = hotelId;
-        if(new Random().nextDouble() > 0.5){
-            h.name = "VingCard Demo Hotel";
-            h.address = "Sophus Lies vei, 1523 Moss, Norge";
-            h.phone = "+47 69 24 50 00";
-            h.email = "info@vingcarddemohotel.com";
-            h.website = "vingcardelsafe.com";
-            h.logoUrl = "http://www.prlog.org/10390390-vingcard-elsafe.jpg";
-            return h;
-        }
-        else {
-            h.name = "Sheraton Park Hotel at the Anaheim Resort";
-            h.address = "900 South Disneyland Drive Anaheim, California 92802";
-            h.phone = "+1 (714) 778-1700";
-            h.email = "sheratonpark@starwoorddemos.com";
-            h.website = "www.starwoodhotels.com/sheraton";
-            h.logoUrl = "http://upload.wikimedia.org/wikipedia/fr/b/bd/Sheraton.png";
-            return h;
-
+        String url = AppConstants.Uris.BASE_URI_REST + "hotel/" + hotelId;
+        try{
+            ResponseEntity<Hotel> responseEntity = restTemplate
+                    .exchange(new URI(url), HttpMethod.GET, getDefaultRequestEntity(), Hotel.class);
+            return responseEntity.getBody();
+        } catch(Exception e){
+            Log.e(TAG, "Error getting hotel: " + e.getMessage());
+            return null;
         }
     }
 }

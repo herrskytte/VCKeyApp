@@ -3,8 +3,10 @@ package com.vingcard.vingcardkeyapp.model;
 import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import com.google.gson.annotations.SerializedName;
 import com.vingcard.vingcardkeyapp.storage.VingCardContract.HotelDB;
+import com.vingcard.vingcardkeyapp.util.AppConstants;
 
 import java.util.Locale;
 
@@ -29,7 +31,7 @@ public class Hotel implements Parcelable{
 	public String website;
 	
 	@SerializedName("LogoUrl")
-	public String logoUrl;
+    public String logoUrl;
 
 	public ContentValues getContentValuesForModel(){
 		ContentValues values = new ContentValues();
@@ -93,4 +95,11 @@ public class Hotel implements Parcelable{
             return new Hotel[size];
         }
     };
+
+    public static String CreateFullLogoUrl(String relativeUrl){
+        if(TextUtils.isEmpty(relativeUrl)){
+            return null;
+        }
+        return AppConstants.Uris.BASE_URI_LOGOS + relativeUrl;
+    }
 }
