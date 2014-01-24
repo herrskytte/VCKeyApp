@@ -15,6 +15,7 @@ public class PreferencesUtil {
 	private static final String PREF_NUMBER = "usernumber";
 	private static final String PREF_GCM_REG = "usergcmregid";
 	private static final String PREF_SMS_CODE = "usersmscode";
+	private static final String PREF_WRONG_SMS_CODE = "userwrongsmscode";
 	private static final String PREF_APP_VERSION = "appversion";
 	
 	public static User getUserData(Context context){
@@ -62,6 +63,11 @@ public class PreferencesUtil {
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		return sp.getString(PREF_SMS_CODE, null);
 	}
+
+	public static String getWrongSmsCode(Context context){
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+		return sp.getString(PREF_WRONG_SMS_CODE, null);
+	}
 	
 	public static String getGcmRegistrationId(Context context){
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
@@ -96,6 +102,11 @@ public class PreferencesUtil {
 	public static void setSmsCode(Context context, String smsCode){
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		sp.edit().putString(PREF_SMS_CODE, smsCode).commit();
+	}
+
+	public static void setWrongSmsCode(Context context, String smsCode){
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+		sp.edit().putString(PREF_WRONG_SMS_CODE, smsCode).commit();
 	}
 
 	/**

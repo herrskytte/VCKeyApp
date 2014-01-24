@@ -67,9 +67,16 @@ public class CardsOverviewFragment extends Fragment implements LoaderManager.Loa
 //			long userId = PreferencesUtil.getUserId(getActivity());
 //			if(userId != -1){
 //				Intent mServiceIntent = new Intent(getActivity(), KeySyncService.class);
-//				mServiceIntent.putExtra(KeySync.DATA_USER_ID, userId);
+//				mServiceIntent.putExtra(Broadcasts.DATA_USER_ID, userId);
 //				getActivity().startService(mServiceIntent);
-//			}		
+//			}
+
+            //Test sms-sending
+//            DoorEvent event = new DoorEvent();
+//            event.cardId = "134";
+//            event.deltaTime = 250;
+//            event.eventType = AppConstants.EventTypes.TYPE_CHECKIN;
+//            SmsHelper.sendEventSMS(getActivity(), event);
 			
 			//Launch event-service
 			Intent mEventSyncIntent = new Intent(getActivity(), EventSyncService.class);
@@ -149,7 +156,7 @@ public class CardsOverviewFragment extends Fragment implements LoaderManager.Loa
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            Uri keyUri = KeyCardDB.buildKeyCardUri(intent.getStringExtra(AppConstants.KeySync.DATA_KEY));
+            Uri keyUri = KeyCardDB.buildKeyCardUri(intent.getStringExtra(AppConstants.Broadcasts.DATA_KEY));
             intent.setData(keyUri);
             showKeyDialog(intent);
         }
@@ -163,7 +170,7 @@ public class CardsOverviewFragment extends Fragment implements LoaderManager.Loa
 				VingCardContract.KeyCardDB.CONTENT_URI, true, mObserver);
 		
 		// Listen for incoming broadcasts with new/updated keys
-		IntentFilter keyIntentFilter = new IntentFilter(AppConstants.KeySync.BROADCAST_ACTION);
+		IntentFilter keyIntentFilter = new IntentFilter(AppConstants.Broadcasts.BROADCAST_KEY);
 		keyIntentFilter.addCategory(Intent.CATEGORY_DEFAULT);
 		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mKeyReceiver, keyIntentFilter);
     }

@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -40,9 +39,9 @@ public class KeyInfoDialogFragment extends DialogFragment{
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = null;
 
-        mAction = getArguments().getString(AppConstants.KeySync.DATA_ACTION);
+        mAction = getArguments().getString(AppConstants.Broadcasts.DATA_ACTION);
         switch (mAction) {
-            case AppConstants.KeySync.ACTION_NEW_KEY:
+            case AppConstants.Broadcasts.ACTION_NEW_KEY:
                 view = inflater.inflate(R.layout.dialog_new_key, null);
                 //If new key, show and start animation
                 ImageView phoneImageView = (ImageView) view.findViewById(R.id.keydialog_phone);
@@ -57,13 +56,13 @@ public class KeyInfoDialogFragment extends DialogFragment{
 
                 //builder.setTitle(R.string.key_notification_new);
                 break;
-            case AppConstants.KeySync.ACTION_UPDATED_KEY:
+            case AppConstants.Broadcasts.ACTION_UPDATED_KEY:
                 view = inflater.inflate(R.layout.dialog_updated_key, null);
                 ((TextView) view.findViewById(R.id.keydialog_header)).setText(R.string.key_notification_update);
 
                 //builder.setTitle(R.string.key_notification_update);
                 break;
-            case AppConstants.KeySync.ACTION_REVOKED_KEY:
+            case AppConstants.Broadcasts.ACTION_REVOKED_KEY:
                 view = inflater.inflate(R.layout.dialog_updated_key, null);
                 ((TextView) view.findViewById(R.id.keydialog_header)).setText(R.string.key_notification_revoke);
 
@@ -114,10 +113,11 @@ public class KeyInfoDialogFragment extends DialogFragment{
                 String fullLogoUrl = Hotel.CreateFullLogoUrl(c2.getString(HotelQuery.HOTEL_LOGO_URL));
                 if(fullLogoUrl != null){
                     Picasso picasso = Picasso.with(getActivity());
-                    picasso.setDebugging(true);
+                    picasso.setDebugging(false);
                     picasso.load(fullLogoUrl)
                             .centerInside()
                             .fit()
+                            .error(R.drawable.cxhotel)
                             .into(mLogoImageView);
                 }
             }
@@ -125,7 +125,7 @@ public class KeyInfoDialogFragment extends DialogFragment{
 		}
         c.close();
 
-        if(AppConstants.KeySync.ACTION_NEW_KEY.equals(mAction)){
+        if(AppConstants.Broadcasts.ACTION_NEW_KEY.equals(mAction)){
             //Manually increase width of dialog in landscape beyond its default max width
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
                 int width = getResources().getDimensionPixelSize(R.dimen.newkeydialog_width_land);

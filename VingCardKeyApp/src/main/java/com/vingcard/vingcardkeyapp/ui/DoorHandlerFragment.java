@@ -142,15 +142,15 @@ public class DoorHandlerFragment extends DialogFragment implements SensorEventLi
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		if(mCurrentStatus == SUCCESS && mCurrentEventData != null){
 			DoorEvent event = new DoorEvent();
-			event.hotelId = mCurrentHotelId;
-			event.roomId = mCurrentRoomId;
-			event.cardId = mCurrentCardId;
-			event.statusData = mCurrentEventData;
-			
-			StorageHelper.storeEvent(getActivity(), event);
-			if(!mCardCheckedIn){
-				StorageHelper.storeCheckInEvent(getActivity(), event);
-			}
+            event.hotelId = mCurrentHotelId;
+            event.roomId = mCurrentRoomId;
+            event.cardId = mCurrentCardId;
+            event.statusData = mCurrentEventData;
+
+            StorageHelper.storeEvent(getActivity(), event);
+            if(!mCardCheckedIn){
+                StorageHelper.storeCheckInEvent(getActivity(), event);
+            }
 			
 			//Launch event-service
 			Intent mEventSyncIntent = new Intent(getActivity(), EventSyncService.class);

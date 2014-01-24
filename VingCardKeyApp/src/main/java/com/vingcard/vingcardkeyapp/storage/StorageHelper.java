@@ -3,6 +3,7 @@ package com.vingcard.vingcardkeyapp.storage;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.vingcard.vingcardkeyapp.util.AppConstants;
 import org.joda.time.DateTime;
 
 import android.content.ContentProviderOperation;
@@ -54,8 +55,8 @@ public class StorageHelper {
 	public static synchronized List<KeyCard> storeKeyCards(Context context, KeyCard[] keyCards){
 		final ContentResolver resolver = context.getContentResolver();
 
-		List<KeyCard> newCards = new ArrayList<KeyCard>();
-		ArrayList<ContentProviderOperation> batch = new ArrayList<ContentProviderOperation>();
+		List<KeyCard> newCards = new ArrayList<>();
+		ArrayList<ContentProviderOperation> batch = new ArrayList<>();
 		
 		for(KeyCard kc : keyCards){
 			
@@ -76,7 +77,7 @@ public class StorageHelper {
 				ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(KeyCardDB.CONTENT_URI);
 				builder.withValues(kc.getContentValuesForModel());
 				batch.add(builder.build());
-				if(kc.revoked == null || kc.revoked == false){
+				if(kc.revoked == null || !kc.revoked){
 					newCards.add(kc);					
 				}
 			}
@@ -101,7 +102,7 @@ public class StorageHelper {
 		values.put(DoorEventDB.EVENT_CARD_ID, event.cardId);
 		values.put(DoorEventDB.EVENT_DATA, event.statusData);
 		values.put(DoorEventDB.EVENT_TIMESTAMP, new DateTime().getMillis());
-		values.put(DoorEventDB.EVENT_TYPE, DoorEvent.TYPE_LOCK);
+		values.put(DoorEventDB.EVENT_TYPE, AppConstants.EventTypes.TYPE_LOCK);
 		resolver.insert(DoorEventDB.CONTENT_URI, values);
 	}
 
@@ -114,7 +115,7 @@ public class StorageHelper {
 	public static synchronized void storeCheckInEvent(Context context, DoorEvent event) {
 		final ContentResolver resolver = context.getContentResolver();
 
-		ArrayList<ContentProviderOperation> batch = new ArrayList<ContentProviderOperation>();
+		ArrayList<ContentProviderOperation> batch = new ArrayList<>();
 
 		//Set card as checked in
 		Uri kcUri = KeyCardDB.buildKeyCardUri(event.cardId);
@@ -130,9 +131,9 @@ public class StorageHelper {
 		values.put(DoorEventDB.EVENT_HOTEL_ID, event.hotelId);
 		values.put(DoorEventDB.EVENT_ROOM_ID, event.roomId);
 		values.put(DoorEventDB.EVENT_CARD_ID, event.cardId);
-		values.put(DoorEventDB.EVENT_DATA, "CHECKIN");
+		values.put(DoorEventDB.EVENT_DATA, AppConstants.EventTypes.TYPE_CHECKIN);
 		values.put(DoorEventDB.EVENT_TIMESTAMP, new DateTime().getMillis());
-		values.put(DoorEventDB.EVENT_TYPE, DoorEvent.TYPE_CHECKIN);
+		values.put(DoorEventDB.EVENT_TYPE, AppConstants.EventTypes.TYPE_CHECKIN);
 		builder.withValues(values);
 		batch.add(builder.build());	
 

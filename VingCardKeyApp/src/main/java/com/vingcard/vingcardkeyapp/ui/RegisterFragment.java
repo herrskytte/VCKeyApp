@@ -77,7 +77,7 @@ public class RegisterFragment extends Fragment {
         if(savedInstanceState != null){
             mSelectedCountry = savedInstanceState.getParcelable(CountryPickerFragment.EXTRA_COUNTRY);
         }else{
-            new FindDeviceCountry().execute();
+            //new FindDeviceCountry().execute();
         }
     }
 

@@ -1,11 +1,9 @@
 package com.vingcard.vingcardkeyapp.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.vingcard.vingcardkeyapp.util.AppConstants;
 
 public class DoorEvent {
-	public static final String TYPE_LOCK = "LOCKEVENT";
-	public static final String TYPE_CHECKIN = "CHECKIN";
-	public static final String TYPE_CHECKOUT = "CHECKOUT";
 	
 	public transient String eventIndex;
 
@@ -29,8 +27,8 @@ public class DoorEvent {
 
 	public boolean isHighPriority() {
         return eventType != null &&
-                (eventType.equals(TYPE_CHECKIN) ||
-                        eventType.equals(TYPE_CHECKOUT));
+                (eventType.equals(AppConstants.EventTypes.TYPE_CHECKIN) ||
+                        eventType.equals(AppConstants.EventTypes.TYPE_CHECKOUT));
     }
 
 }

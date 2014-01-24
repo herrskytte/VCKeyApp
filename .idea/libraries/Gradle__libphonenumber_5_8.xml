@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="libphonenumber-5.8">
+  <library name="Gradle: libphonenumber-5.8">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.googlecode.libphonenumber/libphonenumber/5.8/20dbdcb6cfd201af345c1ba9fc2a164a4d532c79/libphonenumber-5.8.jar!/" />
     </CLASSES>

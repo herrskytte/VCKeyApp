@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.1'
+        classpath 'com.android.tools.build:gradle:0.8.+'
     }
 }
 apply plugin: 'android'
@@ -62,4 +62,5 @@ dependencies {
     compile 'com.googlecode.libphonenumber:libphonenumber:5.8'
     compile 'commons-codec:commons-codec:1.8'
     compile 'com.squareup.picasso:picasso:2.1.0'
+    compile 'com.jakewharton:butterknife:4+'
 }

@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.vingcard.vingcardkeyapp.R;
 import com.vingcard.vingcardkeyapp.model.Hotel;
@@ -155,11 +154,11 @@ public class CardFragment extends Fragment {
                     }
                 });
                 Picasso pic = builder.build();
-                pic.setDebugging(true);
+                pic.setDebugging(false);
                 pic.load(fullLogoUrl)
                         .centerInside()
                         .fit()
-                        .error(R.drawable.failed)
+                        .error(R.drawable.cxhotel)
                         .into(mHotelLogoImage);
             }
         }
@@ -270,8 +269,13 @@ public class CardFragment extends Fragment {
 	
 	public void setScale(float mScale) {
 		this.mScale = mScale;
-		mCardRoot.setScaleBoth(mScale, true);		
-		mCardBackRoot.setScaleBoth(mScale, true);
+        if(mCardRoot != null && mCardBackRoot != null){
+            mCardRoot.setScaleBoth(mScale, true);
+            mCardBackRoot.setScaleBoth(mScale, true);
+        }
+        else{
+            getArguments().putFloat(ARG_SCALE, mScale);
+        }
 	}
 	
 	public void turnCardToFront(){

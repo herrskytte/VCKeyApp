@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="launcher_name">Hotel Keys</string>
     <string name="app_name">VingCard Hotel Keys</string>
     <string name="action_search">Search</string>
 
@@ -65,6 +66,7 @@
     <!-- Error messages -->
     <string name="error_register">Unable to register phone. Make sure you have an internet connection.</string>
     <string name="error_server">Unable to register phone. Problem with our servers. Please try later.</string>
+    <string name="error_code">Wrong or outdated sms-code. Please try again to receive a new code.</string>
     <string name="error_sms_receive">Unable to receive/read SMS. Make sure you are connected to a network and try again.</string>
     <string name="error_phone_input">Please select country and input your phone number.</string>
     <string name="error_intent">No application can handle this action</string>

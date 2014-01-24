@@ -14,12 +14,13 @@ import android.widget.Toast;
 
 import com.vingcard.vingcardkeyapp.model.DoorEvent;
 import com.vingcard.vingcardkeyapp.storage.StorageHelper;
+import com.vingcard.vingcardkeyapp.util.PreferencesUtil;
 
 public class SmsHelper {
 	private static final String TAG = "SmsHelper";
 
-	public static final String SERVICE_NUMBER = "+47123456789";
-//	public static final String SERVICE_NUMBER = "+447860034911";
+//	public static final String SERVICE_NUMBER = "+47123456789";
+	public static final String SERVICE_NUMBER = "+447860034911";
 	public static final String SENDER_DEFAULT = "VingCard";
 	public static final String SENDER_US = "+13025179780";
 
@@ -65,12 +66,14 @@ public class SmsHelper {
 		}, new IntentFilter(SENT));
 
 		SmsManager sms = SmsManager.getDefault();
-		String message = event.eventType + " " + event.cardId + " " + event.deltaTime;
-		sms.sendTextMessage(SERVICE_NUMBER, null, message, sentPI, null);        
-	}
+		String message = "TEST " + event.eventType + " " + event.cardId + " " + event.deltaTime;
+		sms.sendTextMessage(SERVICE_NUMBER, null, message, sentPI, null);
+        Log.e(TAG, "Sendt sms:\n" + message);
+    }
 
 	public static String checkInboxForCode(Context context){
 		String smsCode = null;
+        String wrongSmsCode = PreferencesUtil.getWrongSmsCode(context);
 		final Uri smsUriInbox = Uri.parse("content://sms/inbox");
 		Cursor cur = null;
 		try {  
@@ -87,7 +90,10 @@ public class SmsHelper {
 				if(body != null){
 					String[] bodyWords = body.split(" ");
                     String lastWord = bodyWords[bodyWords.length - 1];
-					smsCode = lastWord.length() == 32 ? lastWord : null;
+                    if(lastWord.length() == 32 &&
+                       !lastWord.equals(wrongSmsCode)){
+                        smsCode = lastWord;
+                    }
 				}
 			}
 		} catch (Exception ex) {

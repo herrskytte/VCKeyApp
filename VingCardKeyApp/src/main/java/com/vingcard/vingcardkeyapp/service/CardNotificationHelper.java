@@ -41,10 +41,10 @@ public class CardNotificationHelper {
 
 	private static void broadcastInternalKeyUpdate(Context context, KeyCard keyCard, String action) {
 		// Broadcasts the Intent for new key to receivers in this app.
-		Intent localIntent = new Intent(AppConstants.KeySync.BROADCAST_ACTION);
+		Intent localIntent = new Intent(AppConstants.Broadcasts.BROADCAST_KEY);
 		localIntent.addCategory(Intent.CATEGORY_DEFAULT);
-		localIntent.putExtra(AppConstants.KeySync.DATA_KEY, keyCard.id);
-        localIntent.putExtra(AppConstants.KeySync.DATA_ACTION, action);
+		localIntent.putExtra(AppConstants.Broadcasts.DATA_KEY, keyCard.id);
+        localIntent.putExtra(AppConstants.Broadcasts.DATA_ACTION, action);
 
 		// Broadcasts the Intent to receivers in this app.
 		LocalBroadcastManager.getInstance(context).sendBroadcast(localIntent);
@@ -56,13 +56,13 @@ public class CardNotificationHelper {
 
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
         switch (action) {
-            case AppConstants.KeySync.ACTION_NEW_KEY:
+            case AppConstants.Broadcasts.ACTION_NEW_KEY:
                 mBuilder.setContentText(context.getText(R.string.key_notification_new));
                 break;
-            case AppConstants.KeySync.ACTION_UPDATED_KEY:
+            case AppConstants.Broadcasts.ACTION_UPDATED_KEY:
                 mBuilder.setContentText(context.getText(R.string.key_notification_update));
                 break;
-            case AppConstants.KeySync.ACTION_REVOKED_KEY:
+            case AppConstants.Broadcasts.ACTION_REVOKED_KEY:
                 mBuilder.setContentText(context.getText(R.string.key_notification_revoke));
                 break;
         }
@@ -76,7 +76,7 @@ public class CardNotificationHelper {
 		Intent cardIntent = new Intent(context, MainActivity.class);
 		cardIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		cardIntent.setData(keyCardUri);
-        cardIntent.putExtra(AppConstants.KeySync.DATA_ACTION, action);
+        cardIntent.putExtra(AppConstants.Broadcasts.DATA_ACTION, action);
 
 
 		PendingIntent cardPendingIntent =

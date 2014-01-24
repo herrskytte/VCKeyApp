@@ -14,6 +14,7 @@ import com.vingcard.vingcardkeyapp.util.AppConstants;
 import com.vingcard.vingcardkeyapp.util.PreferencesUtil;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -36,6 +37,7 @@ public class RestHelper {
 	public static final int SMS_REQUESTING = 300;
 	public static final int SMS_RECEIVING = 302;
 	public static final int REGISTERING = 304;
+	public static final int WRONG_CODE = 306;
 
 	private RestTemplate restTemplate;
 	private HttpHeaders requestHeaders;
@@ -113,7 +115,7 @@ public class RestHelper {
 			if(keyCardList != null){
 				List<KeyCard> newCards = StorageHelper.storeKeyCards(context, keyCardList);
 				if(newCards != null && !newCards.isEmpty()){
-					CardNotificationHelper.notifyKeyUpdate(context, newCards.get(0), AppConstants.KeySync.ACTION_NEW_KEY);
+					CardNotificationHelper.notifyKeyUpdate(context, newCards.get(0), AppConstants.Broadcasts.ACTION_NEW_KEY);
 				}				
 			}
 		}
@@ -154,9 +156,10 @@ public class RestHelper {
 
 		@Override
 		protected User doInBackground(User... params) {
-			try {
-				User userObject = params[0];
-				String url = AppConstants.Uris.BASE_URI_REST + "user";
+            final User userObject = params[0];
+            String url = AppConstants.Uris.BASE_URI_REST + "user";
+
+            try {
 
 				//Requesting SMS from server
 				responseResult = SMS_REQUESTING;
@@ -189,7 +192,19 @@ public class RestHelper {
 				responseResult = HTTP_OK;
 				return responseEntity.getBody();
 
-			} catch (HttpServerErrorException re){
+			}
+            catch (HttpClientErrorException ce){
+                if(ce.getStatusCode().equals(HttpStatus.NOT_ACCEPTABLE)){
+                    PreferencesUtil.setWrongSmsCode(context, userObject.registrationCode);
+                    PreferencesUtil.setSmsCode(context, null);
+                    userObject.registrationCode = null;
+                    responseResult = WRONG_CODE;
+                }
+                else {
+                    responseResult = HTTP_FAILED;
+                }
+            }
+            catch (HttpServerErrorException re){
                 responseResult = SERVER_FAILED;
             }
             catch (Exception e) {

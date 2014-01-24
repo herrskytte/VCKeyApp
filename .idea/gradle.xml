@@ -4,8 +4,14 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
-        <option name="externalProjectPath" value="C:\Computas\Kode\mobile\VingCard\VingCardKeyAppDev" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../../../Android/gradle-1.8" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/VingCardKeyApp" />
+          </set>
+        </option>
       </GradleProjectSettings>
     </option>
   </component>
