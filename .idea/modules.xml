@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/NFCTestApp/NFCTestApp.iml" filepath="$PROJECT_DIR$/NFCTestApp/NFCTestApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/VingCardKeyApp/VingCardKeyApp.iml" filepath="$PROJECT_DIR$/VingCardKeyApp/VingCardKeyApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/VingCardKeyAppDev.iml" filepath="$PROJECT_DIR$/VingCardKeyAppDev.iml" />
     </modules>
